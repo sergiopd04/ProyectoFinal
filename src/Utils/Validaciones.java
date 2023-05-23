@@ -1,6 +1,11 @@
 package Utils;
 
 import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
 public class Validaciones {
 
@@ -392,4 +397,38 @@ public class Validaciones {
 
         } while (!salir);
     return true;}
+
+    public static boolean validarFechas(String fechaEntrada, String fechaSalida) {
+        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        formatoFecha.setLenient(false);
+
+        try {
+            Date fechaActual = new Date();
+            Date fechaIni = formatoFecha.parse(fechaEntrada);
+            Date fechaFin = formatoFecha.parse(fechaSalida);
+
+            if (fechaIni.getYear() != 123 || fechaFin.getYear() != 123) {
+                System.out.println("Las fechas deben ser del año 2023.");
+                return false;
+            }
+
+            if (fechaIni.before(fechaActual) || fechaFin.before(fechaActual)) {
+                System.out.println("Las fechas no pueden ser anteriores a la fecha actual.");
+                return false;
+            }
+
+            if (fechaFin.before(fechaIni)) {
+                System.out.println("La fecha de salida no puede ser anterior a la fecha de entrada.");
+                return false;
+            }
+
+            return true;
+
+        } catch (ParseException e) {
+            System.out.println("Las fechas ingresadas no tienen el formato correcto (dd/mm/yyyy).");
+            return false;
+        }
+
+        
+    }
 }

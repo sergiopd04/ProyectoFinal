@@ -13,7 +13,7 @@ public class Main {
         AtencionCliente sistemafaqs = new AtencionCliente();
 
         String opcion,hotelopcion,metpagoopcion;
-        String nombre, apellidos, email, tlf, fecha, fraseControl, emailLogin, codLogin, tarjeta, CCV, fechaCad;
+        String nombre, apellidos, email, tlf, fecha, fraseControl, emailLogin, codLogin, tarjeta, CCV, fechaCad, fechaEntrada, fechaSalida;
 
         do {
             System.out.print("*************\nTarifa Dreams\n*************\n");
@@ -46,12 +46,12 @@ public class Main {
                     validaciones.validarFrase(fraseControl);
                     break;
                 case "2":
-                    System.out.println("Email: ");
+                    /*System.out.println("Email: ");
                     emailLogin=sc.nextLine();
                     validaciones.validarEmailLogin(emailLogin);
                     System.out.println("Código Numérico: ");
                     codLogin=sc.nextLine();
-                    validaciones.validarCodigoLogin(codLogin);
+                    validaciones.validarCodigoLogin(codLogin);*/
                     System.out.println("1. Reserva de habitación");
                     System.out.println("2. Atención al cliente");
                     System.out.println("3. Pago on-line con factura");
@@ -61,11 +61,17 @@ public class Main {
                     switch (hotelopcion) {
                         case "1":
                             System.out.println("******* RESERVAR HABITACIÓN *******");
-                            System.out.println("¿Para cuántas personas se hace la reserva?");
+                            /*System.out.println("¿Para cuántas personas se hace la reserva?");*/
+                            do {
+                                System.out.print("Ingrese la fecha de entrada (dd/mm/yyyy): ");
+                                fechaEntrada = sc.nextLine();
 
-                            System.out.println("¿Cuál es la fecha de entrada?");
+                                System.out.print("Ingrese la fecha de salida (dd/mm/yyyy): ");
+                                fechaSalida = sc.nextLine();
 
-                            System.out.println("¿Cuál es la fecha de salida?");
+                            } while (!Validaciones.validarFechas(fechaEntrada, fechaSalida));
+
+                            System.out.println("Las fechas son válidas.");
 
                             break;
                         case "2":
