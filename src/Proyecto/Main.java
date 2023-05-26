@@ -2,7 +2,9 @@ package Proyecto;
 
 import Models.AtencionCliente;
 import Utils.Validaciones;
+import java.time.format.DateTimeParseException;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +15,9 @@ public class Main {
         AtencionCliente sistemafaqs = new AtencionCliente();
 
         String opcion,hotelopcion,metpagoopcion;
-        String nombre, apellidos, email, tlf, fecha, fraseControl, emailLogin, codLogin, tarjeta, CCV, fechaCad, fechaEntrada, fechaSalida;
+        String nombre, apellidos, email, tlf, fraseControl, emailLogin, codLogin, tarjeta, CCV, fechaCad, fechaEntrada, fechaSalida;
+        String fecha;
+        boolean tarjetaValida = false;
 
         do {
             System.out.print("*************\nTarifa Dreams\n*************\n");
@@ -24,7 +28,7 @@ public class Main {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-                    System.out.print("\n************\n Registro \n************\n");
+                   /* System.out.print("\n************\n Registro \n************\n");
                     System.out.println("Introduce los siguientes datos \n--------------");
                     System.out.println("Nombre: ");
                     nombre=sc.nextLine();
@@ -37,10 +41,16 @@ public class Main {
                     validaciones.validarCorreo(email);
                     System.out.println("Teléfono: ");
                     tlf=sc.nextLine();
-                    validaciones.validarTelefono(tlf);
-                    System.out.print("Fecha de Nacimiento (dd/mm/aaaa): ");
-                    fecha=sc.nextLine();
-                    validaciones.validarFecha(fecha);
+                    validaciones.validarTelefono(tlf);*/
+
+                    do {
+                        System.out.print("Ingresa tu fecha de nacimiento (dd/mm/yyyy): ");
+                        fecha = sc.nextLine();
+                    } while (!Validaciones.validarFecha(fecha));
+                    LocalDate fechaNacimiento = Validaciones.convertirFecha(fecha);
+                    String mensaje = Validaciones.calcularEdad(fechaNacimiento);
+                    System.out.println(mensaje);
+
                     System.out.print("Frase de Control (4 palabras separadas por espacios): ");
                     fraseControl=sc.nextLine();
                     validaciones.validarFrase(fraseControl);
@@ -65,10 +75,8 @@ public class Main {
                             do {
                                 System.out.print("Ingrese la fecha de entrada (dd/mm/yyyy): ");
                                 fechaEntrada = sc.nextLine();
-
                                 System.out.print("Ingrese la fecha de salida (dd/mm/yyyy): ");
                                 fechaSalida = sc.nextLine();
-
                             } while (!Validaciones.validarFechas(fechaEntrada, fechaSalida));
 
                             System.out.println("Las fechas son válidas.");
@@ -79,20 +87,26 @@ public class Main {
                             break;
                         case "3":
                             System.out.println("******* MÉTODOS DE PAGO *******");
-                            System.out.println("1. Tarjeta de crédito.");
+                            System.out.println("1. Tarjeta");
                             System.out.println("2. Bizum.");
                             metpagoopcion = sc.nextLine();
                             switch (metpagoopcion){
                                 case "1":
-                                    System.out.println("Número tarjeta:");
-                                    tarjeta = sc.nextLine();
-                                    validaciones.validarTarjeta(tarjeta);
-                                    System.out.println("CCV:");
-                                    CCV = sc.nextLine();
-                                    validaciones.validarCCV(CCV);
-                                    System.out.println("Fecha de caducidad:");
-                                    fechaCad = sc.nextLine();
-                                    validaciones.validarFechaCad(fechaCad);
+                                    tarjetaValida = false;
+
+                                    while (!tarjetaValida) {
+                                        System.out.print("Ingrese el número de tarjeta de crédito: ");
+                                        String tarjetaNumero = sc.nextLine();
+
+                                        String entidadBancaria = Validaciones.validarTarjetaCredito(tarjetaNumero);
+                                        if (entidadBancaria != null) {
+                                            tarjetaValida = true;
+                                            System.out.println("Tarjeta de crédito válida.");
+                                            System.out.println("Entidad bancaria: " + entidadBancaria);
+                                        } else {
+                                            System.out.println("Tarjeta de crédito inválida. Por favor, intente nuevamente.");
+                                        }
+                                    }
                                     break;
                                 case "2":
                                     System.out.println("Has elegido la opción de pago con bizum.");

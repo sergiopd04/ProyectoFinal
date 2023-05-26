@@ -5,7 +5,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.Period;
+
 
 public class Validaciones {
 
@@ -106,101 +108,140 @@ public class Validaciones {
         }while (!salir);
     return true;}
 
-    public boolean validarFecha(String fecha) {
-        Scanner sc = new Scanner(System.in);
-        boolean salir = false;
+    public static boolean validarFecha(String fecha) {
+        String[] partes = fecha.split("/");
+        if (partes.length != 3) {
+            System.out.println("Formato de fecha incorrecto. Debe ser dd/mm/yyyy.");
+            return false;
+        }
 
-        do {
-            boolean validarDig = false;
-            for (int i = 0; i < 1; i++) {
-                if (!validarDig) {
-                    if (fecha.length()==10) {
-                        if (fecha.charAt(0) >= '0' || fecha.charAt(0) <= '9') {
-                            if (((fecha.charAt(2) == '/') && (fecha.charAt(5) == '/')) || ((fecha.charAt(2) == '-') && (fecha.charAt(5) == '-'))) {
-                                validarDig=true;
-                            }else {
-                                validarDig = false;
-                                System.out.println("Fecha incorrecta");
-                                System.out.println("Fecha: ");
-                                fecha = sc.nextLine();
-                                validarFecha(fecha);
-                            }
-                        }else {
-                            validarDig = false;
-                            System.out.println("Fecha incorrecta");
-                            System.out.println("Fecha: ");
-                            fecha = sc.nextLine();
-                            validarFecha(fecha);
-                        }
-                    }else {
-                        validarDig = false;
-                        System.out.println("Fecha incorrecta");
-                        System.out.println("Fecha: ");
-                        fecha = sc.nextLine();
-                        validarFecha(fecha);
-                    }
-                }else  {
-                    validarDig = false;
-                    System.out.println("Fecha incorrecta");
-                    System.out.println("Fecha: ");
-                    fecha = sc.nextLine();
-                    validarFecha(fecha);
-                }
+        int dia, mes, anio;
+        try {
+            dia = Integer.parseInt(partes[0]);
+            mes = Integer.parseInt(partes[1]);
+            anio = Integer.parseInt(partes[2]);
+        } catch (NumberFormatException e) {
+            System.out.println("Formato de fecha incorrecto. Debe ser dd/mm/yyyy.");
+            return false;
+        }
+
+        if (dia < 1 || dia > 31 || mes < 1 || mes > 12) {
+            System.out.println("Fecha inválida.");
+            return false;
+        }
+
+        if (mes == 2) {
+            // Validar febrero y años bisiestos
+            boolean esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+            if (esBisiesto && dia > 29) {
+                System.out.println("Fecha inválida. Febrero en año bisiesto no puede tener más de 29 días.");
+                return false;
+            } else if (!esBisiesto && dia > 28) {
+                System.out.println("Fecha inválida. Febrero no puede tener más de 28 días.");
+                return false;
             }
-
-            if (validarDig){
-                String subDia = fecha.substring(0,2);
-                String subMes = fecha.substring(3,5);
-                String subAnio = fecha.substring(6);
-
-                int dia = Integer.parseInt(subDia);
-                int mes = Integer.parseInt(subMes);
-                int anio = Integer.parseInt(subAnio);
-
-                if (dia >= 1 && dia <= 31) {
-                    if (mes >= 1 && mes <= 12) {
-                        salir = true;
-                        if (anio % 400 == 0 || (anio % 4 == 0 && anio % 100 != 0)) {
-                            salir = true;
-                        } else {
-                            System.out.println("Fecha incorrecta");
-                            System.out.println("Introduce fecha: ");
-                            fecha = sc.nextLine();
-                            validarFecha(fecha);
-                        }
-                    } else {
-                        System.out.println("Fecha incorrecta");
-                        System.out.println("Introduce fecha: ");
-                        fecha = sc.nextLine();
-                        validarFecha(fecha);
-
-                    }
-                } else {
-                    System.out.println("Fecha incorrecta");
-                    System.out.println("Introduce fecha: ");
-                    fecha = sc.nextLine();
-                    validarFecha(fecha);
-                }
+        } else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+            // Validar meses con 30 días
+            if (dia > 30) {
+                System.out.println("Fecha inválida. El mes especificado no puede tener más de 30 días.");
+                return false;
             }
-        } while (!salir);
+        }
+
+        // Realiza otras validaciones si es necesario, como verificar febrero y los años bisiestos
+
         return true;
+    }
+
+    public static LocalDate convertirFecha(String fecha) {
+        String[] partes = fecha.split("/");
+        if (partes.length != 3 || partes[0].isEmpty() || partes[1].isEmpty() || partes[2].isEmpty()) {
+            throw new IllegalArgumentException("Formato de fecha incorrecto. Debe ser dd/mm/yyyy.");
+        }
+
+        int dia = Integer.parseInt(partes[0]);
+        int mes = Integer.parseInt(partes[1]);
+        int anio = Integer.parseInt(partes[2]);
+        return LocalDate.of(anio, mes, dia);
+    }
+
+    public static String calcularEdad(LocalDate fechaNacimiento) {
+        LocalDate fechaActual = LocalDate.now();
+        Period periodo = Period.between(fechaNacimiento, fechaActual);
+        int edad = periodo.getYears();
+
+        if (edad >= 18) {
+            return "Fecha correcta. Eres mayor de edad.";
+        } else {
+            return "Fecha incorrecta. No puedes acceder siendo menor de edad.";
+        }
     }
 
     public boolean validarFrase(String frase) {
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
+        boolean validarDig = false;
+        boolean primeraLetra = false;
+        boolean sacarValor = false;
+
         do {
+
             String[] palabras = frase.split("\\s+");
             if (palabras.length == 4) {
-                salir=true;
+                validarDig=true;
             } else {
                 System.out.println("Frase incorrecta");
                 System.out.println("Introduce nueva frase:");
                 frase = sc.nextLine();
             }
+
+            if (validarDig){
+                for (int i = 0; i < frase.length(); i++) {
+                    char c = frase.charAt(i);
+                    if (!Character.isLetter(c) && c != ' ') {
+                        System.out.println("La frase no debe contener dÃ­gitos o caracteres especiales.");
+                        System.out.println("Frase: ");
+                        frase = sc.nextLine();
+                    } else {
+                        primeraLetra=true;
+                    }
+                }
+            }
+
+            if (primeraLetra) {
+                String[] subcadenas = frase.split(" ");
+
+                String nuevaFrase = "";
+                for (String subcadena : subcadenas) {
+                    char primLetra = subcadena.charAt(0);
+                    nuevaFrase += primLetra;
+                }
+
+                sacarValor=true;
+                if (sacarValor) {
+                    String[] valor = frase.split(" ");
+                    int[] primValor = new int[Math.min(valor.length, 4)];
+                    for (int i = 0; i < primValor.length; i++) {
+                        byte[] bytes = valor[i].getBytes();
+                        primValor[i] = bytes[bytes.length - 1];
+                    }
+
+                    // Sumar todos los valores en primValor
+                    int suma = 0;
+                    for (int i = 0; i < primValor.length; i++) {
+                        suma += primValor[i];
+                    }
+
+                    int cociente = suma / 4;
+                    int resto = suma % 4;
+                    int codigoNumerico = cociente - resto;
+                    System.out.println("El codigo es el siguiente: " + nuevaFrase.toUpperCase() + codigoNumerico);
+                    salir=true;
+                }
+            }
         }while (!salir);
-        return true;
-    }
+
+        return true;}
 
     public boolean validarEmailLogin(String emailLogin) {
         Scanner sc = new Scanner(System.in);
@@ -241,8 +282,6 @@ public class Validaciones {
     public boolean validarTarjeta(String tarjeta) {
         Scanner sc = new Scanner(System.in);
         boolean salir=false;
-
-
 
         do {
             boolean validarDigito=false;
@@ -428,7 +467,50 @@ public class Validaciones {
             System.out.println("Las fechas ingresadas no tienen el formato correcto (dd/mm/yyyy).");
             return false;
         }
+    }
+    public static String validarTarjetaCredito(String numeroTarjeta) {
+        numeroTarjeta = numeroTarjeta.replaceAll(" ", ""); // Eliminar espacios en blanco
 
-        
+        if (!numeroTarjeta.matches("\\d+")) {
+            return null; // Contiene caracteres no numéricos
+        }
+
+        int suma = 0;
+        boolean doble = false;
+
+        for (int i = numeroTarjeta.length() - 1; i >= 0; i--) {
+            int digito = Character.getNumericValue(numeroTarjeta.charAt(i));
+
+            if (doble) {
+                digito *= 2;
+                if (digito > 9) {
+                    digito -= 9;
+                }
+            }
+
+            suma += digito;
+            doble = !doble;
+        }
+
+        if (suma % 10 != 0) {
+            return null; // Tarjeta inválida según el algoritmo de Luhn
+        }
+
+        // Identificar la entidad bancaria por el primer número de la tarjeta
+        char primerDigito = numeroTarjeta.charAt(0);
+
+        if (primerDigito == '4') {
+            return "Visa";
+        } else if (primerDigito == '5') {
+            return "Mastercard";
+        } else if (primerDigito == '3' && (numeroTarjeta.charAt(1) == '4' || numeroTarjeta.charAt(1) == '7')) {
+            return "American Express";
+        } else if (primerDigito == '6') {
+            return "Discover";
+        } else if (primerDigito == '2') {
+            return "Mastercard";
+        } else {
+            return "Desconocida";
+        }
     }
 }
