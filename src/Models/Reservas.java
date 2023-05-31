@@ -1,13 +1,16 @@
 package Models;
 
 
+import java.util.Date;
+
 public class Reservas {
+
 
     int cod;
     String id_cliente;
     String id_habitacion;
-    String fecha_entrada;
-    String fecha_salida;
+    Date fecha_entrada;
+    Date fecha_salida;
 
     public int getCod() {
         return cod;
@@ -33,28 +36,31 @@ public class Reservas {
         this.id_habitacion = id_habitacion;
     }
 
-    public String getFecha_entrada() {
+    public Date getFecha_entrada() {
         return fecha_entrada;
     }
 
-    public void setFecha_entrada(String fecha_entrada) {
+    public void setFecha_entrada(Date fecha_entrada) {
         this.fecha_entrada = fecha_entrada;
     }
 
-    public String getFecha_salida() {
+    public Date getFecha_salida() {
         return fecha_salida;
     }
 
-    public void setFecha_salida(String fecha_salida) {
+    public void setFecha_salida(Date fecha_salida) {
         this.fecha_salida = fecha_salida;
     }
 
-    public Reservas(int cod, String id_cliente, String id_habitacion, String fecha_entrada, String fecha_salida){
+    public Reservas(int cod, String id_cliente, String id_habitacion, Date fecha_entrada, Date fecha_salida){
         this.cod=cod;
         this.id_cliente=id_cliente;
         this.id_habitacion=id_habitacion;
         this.fecha_entrada=fecha_entrada;
         this.fecha_salida=fecha_salida;
+    }
+
+    public Reservas() {
     }
 }
 

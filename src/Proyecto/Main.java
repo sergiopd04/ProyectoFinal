@@ -1,22 +1,25 @@
 package Proyecto;
 
 import Controllers.GestorClientes;
+import Controllers.GestorReservas;
 import Models.AtencionCliente;
 import Models.Cliente;
 import Utils.Validaciones;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         Scanner sc = new Scanner(System.in);
         Validaciones validaciones = new Validaciones();
         AtencionCliente sistemafaqs = new AtencionCliente();
         GestorClientes gesCliente = new GestorClientes();
+        GestorReservas gestorReservas = new GestorReservas();
         gesCliente.cargarDatos();
 
         String opcion,hotelopcion,metpagoopcion;
@@ -87,17 +90,7 @@ public class Main {
                         hotelopcion= sc.nextLine();
                         switch (hotelopcion) {
                             case "1":
-                                System.out.println("******* RESERVAR HABITACIÓN *******");
-                                System.out.println("¿Para cuántas personas se hace la reserva?");
-                                numPersonas=sc.nextLine();
-                                do {
-                                    System.out.print("Ingrese la fecha de entrada (dd/mm/yyyy): ");
-                                    fechaEntrada = sc.nextLine();
-                                    System.out.print("Ingrese la fecha de salida (dd/mm/yyyy): ");
-                                    fechaSalida = sc.nextLine();
-                                } while (!Validaciones.validarFechas(fechaEntrada, fechaSalida));
-                                System.out.println("Las fechas son válidas.");
-
+                                gestorReservas.reservaAnadida();
                                 break;
                             case "2":
                                 sistemafaqs.mostarfaqs();
