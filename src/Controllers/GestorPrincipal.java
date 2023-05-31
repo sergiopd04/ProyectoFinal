@@ -20,8 +20,10 @@ public class GestorPrincipal {
                     menuClientes();
                     break;
                 case "3":
-
-
+                    menuReservas();
+                    break;
+                default:
+                    System.out.println("Opción incorrecta...");
             }
 
         }while (salir);
@@ -41,16 +43,16 @@ public class GestorPrincipal {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-                    /*gestorClientes.guardarCliente();*/
+
                     break;
                 case "2":
-
+                    /*gestorClientes.consultarCliente();*/
                     break;
                 case "3":
-
+                    /*gestorClientes.actualizarCliente();*/
                     break;
                 case "4":
-
+                    /*gestorClientes.eliminarCliente();*/
                     break;
                 case "5":
                     System.out.println("Regresando al menú anterior...");
@@ -61,6 +63,24 @@ public class GestorPrincipal {
         } while (opcion != "5");
     }
     void menuReservas(){
+        String opcion;
+        GestorClientes gestorClientes = new GestorClientes();
+        do {
+            System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
+            System.out.println("1. Listado reservas");
+            System.out.println("2. Cancelar reserva");
+            System.out.print("Elija una opción: ");
+            opcion = sc.nextLine();
+            switch (opcion) {
+                case "1":
 
+                    break;
+                case "2":
+                    /*gestorReservas.cancelarReserva();*/
+                    break;
+                default:
+                    System.out.println("Opción inválida, intente de nuevo");
+            }
+        } while (opcion != "5");
     }
 }

@@ -6,6 +6,9 @@ public class Usuario {
     String email;
     boolean rol;
 
+    public Usuario(String nombreUsuario, String password, boolean rol) {
+    }
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }

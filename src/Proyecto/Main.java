@@ -25,7 +25,6 @@ public class Main {
         boolean opcion2=false;
 
         do {
-            boolean volverOpcion=false;
             System.out.print("*************\nTarifa Dreams\n*************\n");
             System.out.println("1. Registro Usuario");
             System.out.println("2. Login Usuario");

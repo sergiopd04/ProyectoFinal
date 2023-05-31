@@ -79,5 +79,4 @@ public class Cliente {
                 ", codigo_acceso='" + codigo_acceso + '\'' +
                 '}';
     }
-
 }
