@@ -1,14 +1,16 @@
 package Models;
 
+import java.time.LocalDate;
+
 public class Cliente {
     String nombre;
     String apellidos;
     String email;
     String dni;
-    String fecha_nacimiento;
+    LocalDate fecha_nacimiento;
     String codigo_acceso;
 
-    public Cliente(String nombre, String apellidos, String email, String dni, String fecha_nacimiento, String codigo_acceso) {
+    public Cliente(String nombre, String apellidos, String email, String dni, LocalDate fecha_nacimiento, String codigo_acceso) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
@@ -50,11 +52,11 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public String getFecha_nacimiento() {
+    public LocalDate getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(String fecha_nacimiento) {
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 

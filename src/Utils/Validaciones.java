@@ -24,7 +24,7 @@ public class Validaciones {
                 nombre = sc.nextLine();
             }
 
-            while(nombre.length() < 3 || !nombre.matches("[a-zA-Zªº]+")) {
+            while(nombre.length() < 3 || !nombre.matches("[a-zA-ZªºñÑ]+")) {
                 System.out.println("El nombre debe tener al menos 3 caracteres y contener solo letras. Inténtalo de nuevo.");
                 nombre = sc.nextLine();
             }
@@ -45,7 +45,7 @@ public class Validaciones {
                 apellidos = sc.nextLine();
             }
 
-            while(apellidos.length() < 3 || !apellidos.matches("[a-zA-Zªº]+")) {
+            while(apellidos.length() < 3 || !apellidos.matches("[a-zA-ZªºñÑ]+")) {
                 System.out.println("El apellido debe tener al menos 3 caracteres y contener solo letras.");
                 apellidos = sc.nextLine();
             }
@@ -165,16 +165,24 @@ public class Validaciones {
         return LocalDate.of(anio, mes, dia);
     }
 
-    public static String calcularEdad(LocalDate fechaNacimiento) {
+    public static boolean calcularEdad(LocalDate fechaNacimiento) {
         LocalDate fechaActual = LocalDate.now();
         Period periodo = Period.between(fechaNacimiento, fechaActual);
         int edad = periodo.getYears();
 
         if (edad >= 18) {
-            return "Fecha correcta. Eres mayor de edad.";
+            System.out.println("Fecha correcta. Eres mayor de edad.");
+            return true;
         } else {
-            return "Fecha incorrecta. No puedes acceder siendo menor de edad.";
+            System.out.println("Fecha incorrecta. No puedes acceder siendo menor de edad.");
+            return false;
         }
+    }
+
+    static String codigoFinal;
+
+    public static String getCodigoFinal() {
+        return codigoFinal;
     }
 
     public boolean validarFrase(String frase) {
@@ -236,6 +244,7 @@ public class Validaciones {
                     int resto = suma % 4;
                     int codigoNumerico = cociente - resto;
                     System.out.println("El codigo es el siguiente: " + nuevaFrase.toUpperCase() + codigoNumerico);
+                    codigoFinal = nuevaFrase.toUpperCase() + codigoNumerico;
                     salir=true;
                 }
             }
@@ -512,5 +521,11 @@ public class Validaciones {
         } else {
             return "Desconocida";
         }
+    }
+    public void volverMetodo(){
+        String leerOpcion;
+        System.out.println("¿Desea volver?S/N");
+
+
     }
 }

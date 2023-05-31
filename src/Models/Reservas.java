@@ -56,5 +56,4 @@ public class Reservas {
         this.fecha_entrada=fecha_entrada;
         this.fecha_salida=fecha_salida;
     }
-
 }
