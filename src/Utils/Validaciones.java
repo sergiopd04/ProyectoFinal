@@ -1,5 +1,6 @@
 package Utils;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -477,49 +478,47 @@ public class Validaciones {
             return false;
         }
     }
-    public static String validarTarjetaCredito(String numeroTarjeta) {
-        numeroTarjeta = numeroTarjeta.replaceAll(" ", ""); // Eliminar espacios en blanco
 
-        if (!numeroTarjeta.matches("\\d+")) {
-            return null; // Contiene caracteres no numéricos
+    public static boolean Tarjeta(String NumeroTarjeta) {
+
+        if (NumeroTarjeta.trim().isEmpty()) {
+            return false;
         }
 
-        int suma = 0;
-        boolean doble = false;
 
-        for (int i = numeroTarjeta.length() - 1; i >= 0; i--) {
-            int digito = Character.getNumericValue(numeroTarjeta.charAt(i));
+        if (!NumeroTarjeta.matches("\\d+")) {
+            return false;
+        }
 
-            if (doble) {
-                digito *= 2;
-                if (digito > 9) {
-                    digito -= 9;
+        int sum = 0;
+        boolean numero = false;
+        for (int i = NumeroTarjeta.length() - 1; i >= 0; i--) {
+            int n = Integer.parseInt(NumeroTarjeta.substring(i, i + 1));
+            if (numero) {
+                n *= 2;
+                if (n > 9) {
+                    n = (n % 10) + 1;
                 }
             }
-
-            suma += digito;
-            doble = !doble;
+            sum += n;
+            numero = !numero;
         }
 
-        if (suma % 10 != 0) {
-            return null; // Tarjeta inválida según el algoritmo de Luhn
-        }
-
-        // Identificar la entidad bancaria por el primer número de la tarjeta
-        char primerDigito = numeroTarjeta.charAt(0);
-
-        if (primerDigito == '4') {
-            return "Visa";
-        } else if (primerDigito == '5') {
-            return "Mastercard";
-        } else if (primerDigito == '3' && (numeroTarjeta.charAt(1) == '4' || numeroTarjeta.charAt(1) == '7')) {
-            return "American Express";
-        } else if (primerDigito == '6') {
-            return "Discover";
-        } else if (primerDigito == '2') {
-            return "Mastercard";
+        if (sum % 10 == 0) {
+            if (NumeroTarjeta.matches("^4[0-9]{12}(?:[0-9]{3})?$")) {
+                System.out.println("VISA");
+            } else if (NumeroTarjeta.matches("^5[1-5][0-9]{14}$")) {
+                System.out.println("MASTERCARD");
+            } else if (NumeroTarjeta.matches("^3[47][0-9]{13}$")) {
+                System.out.println("AMEX");
+            } else if (NumeroTarjeta.matches("^3(?:0[0-5]|[68][0-9])[0-9]{11}$")) {
+                System.out.println("DINERS CLUB");
+            } else if (NumeroTarjeta.matches("^6(?:011|5[0-9]{2})[0-9]{12}$")) {
+                System.out.println("DISCOVER");
+            }
+            return true;
         } else {
-            return "Desconocida";
+            return false;
         }
     }
     public void volverMetodo(){

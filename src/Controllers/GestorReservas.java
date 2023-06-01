@@ -20,6 +20,15 @@ public class GestorReservas {
 
     Reservas reservas = new Reservas();
 
+    private ArrayList<Habitacion> listadoHabitaciones;
+
+    public GestorReservas(ArrayList<Habitacion> listadoHabitaciones) {
+        this.listadoHabitaciones = listadoHabitaciones;
+    }
+
+    public GestorReservas() {
+    }
+
     Validaciones validaciones = new Validaciones();
 
     public void reservaAnadida() throws ParseException {
@@ -81,8 +90,7 @@ public class GestorReservas {
 
 
     ArrayList<String> habitaciondisponible =new ArrayList<String>();
-
-    ArrayList<Habitacion> listadoHabitaciones = new ArrayList<>();
+    
 
     public ArrayList<Habitacion> getListadoHabitaciones() {
         return listadoHabitaciones;

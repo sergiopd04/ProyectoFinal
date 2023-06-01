@@ -107,14 +107,14 @@ public class Main {
                                             System.out.print("Ingrese el número de tarjeta de crédito: ");
                                             String tarjetaNumero = sc.nextLine();
 
-                                            String entidadBancaria = Validaciones.validarTarjetaCredito(tarjetaNumero);
+                                            /*String entidadBancaria = Validaciones.Tarjeta(tarjetaNumero);
                                             if (entidadBancaria != null) {
                                                 tarjetaValida = true;
                                                 System.out.println("Tarjeta de crédito válida.");
                                                 System.out.println("Entidad bancaria: " + entidadBancaria);
                                             } else {
                                                 System.out.println("Tarjeta de crédito inválida. Por favor, intente nuevamente.");
-                                            }
+                                            }*/
                                         }
                                         break;
                                     case "2":

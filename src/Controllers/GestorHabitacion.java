@@ -31,5 +31,4 @@ public class GestorHabitacion {
         listadoHabitaciones.add(new Habitacion("B2","Con dinero","asd", 2, 2, true, false, 30));
         listadoHabitaciones.add(new Habitacion("C1","Jeque","asd", 3, 3, true, false, 40));
     }
-
 }
