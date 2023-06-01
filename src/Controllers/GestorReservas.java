@@ -18,26 +18,20 @@ public class GestorReservas {
 
     GestorHabitacion gestorHabitaciones = new GestorHabitacion();
 
+    private ArrayList<Habitacion> listadoHabitaciones = new ArrayList<Habitacion>();
+
     Reservas reservas = new Reservas();
 
-    private ArrayList<Habitacion> listadoHabitaciones;
-
-    public GestorReservas(ArrayList<Habitacion> listadoHabitaciones) {
-        this.listadoHabitaciones = listadoHabitaciones;
-    }
 
     public GestorReservas() {
     }
 
     Validaciones validaciones = new Validaciones();
 
-    public void reservaAnadida() throws ParseException {
-
+    public void mostrarHabitacionesDisponibles() throws ParseException {
         Scanner sc = new Scanner(System.in);
 
-        List<Habitacion> listadoHabitaciones = new ArrayList<>();
-        List<Reservas> listadoReservas = new ArrayList<>();
-
+        String num_personas="";
         System.out.println("*******   RESERVAR HABITACIÓN  ********");
         System.out.print("¿Para cuántas personas se hace la reserva? ");
         int numeroclientes = Integer.parseInt(sc.nextLine());
@@ -53,49 +47,22 @@ public class GestorReservas {
         System.out.println("Las fechas son válidas.");
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
         Date mifecha = formato.parse(fechaEntrada);
         Date mifecha2 = formato.parse(fechaSalida);
 
-        List<String> habitaciondisponible = new ArrayList<>();
+        System.out.println("Tenemos disponibles para esa fecha:");
 
-        for (Habitacion habitacion1 : listadoHabitaciones) {
-            if (numeroclientes <= habitacion1.getMax_personas()) {
-                habitaciondisponible.add(habitacion1.getId());
-            }
-        }
-
-        for (Reservas reserva : listadoReservas) {
-            if (reserva.getFecha_entrada().equals(mifecha)
-                    || (mifecha.before(reserva.getFecha_salida()) && mifecha.after(reserva.getFecha_entrada())
-                    && mifecha.getMonth() == reserva.getFecha_entrada().getMonth())) {
-                habitaciondisponible.remove(reserva.getId_habitacion());
-            }
-        }
-
-        System.out.println("\nTenemos disponibles para esa fecha:");
         int opcion = 1;
-        for (String hd : habitaciondisponible) {
-            for (Habitacion hab : listadoHabitaciones) {
-                if (hab.getId().equals(hd)) {
-                    System.out.println("\t* Opción " + opcion++);
-                    System.out.println("\t" + hab.getNombre() + " para " + hab.getMax_personas() + " personas");
-                    System.out.println("\tPrecio final: " + hab.getPrecio() + " €");
-                }
+        for (Habitacion habitacion : listadoHabitaciones) {
+            int personas = Integer.parseInt(num_personas);
+            if (habitacion.getMax_personas() >= personas) {
+                System.out.println("\t" + habitacion.getNombre() + " para " + habitacion.getMax_personas() + " personas");
+                System.out.println("\tPrecio final: " + habitacion.getPrecio() + " €");
+                opcion++;
             }
         }
-
-        System.out.print("\n¿Qué opción desea? ");
-        String opciones = sc.nextLine();
     }
-
-
-    ArrayList<String> habitaciondisponible =new ArrayList<String>();
-    
-
-    public ArrayList<Habitacion> getListadoHabitaciones() {
-        return listadoHabitaciones;
-    }
-
     public void setListadoHabitaciones(ArrayList<Habitacion> listadoHabitaciones) {
         this.listadoHabitaciones = listadoHabitaciones;
     }
@@ -115,4 +82,12 @@ public class GestorReservas {
         Reservas reserva2 = new Reservas(3,"3","B1","27/07/2023","27/08/2023");
         Reservas reserva3 = new Reservas(4,"4","C1","27/08/2023","27/09/2023");*/
     }
+    public void generarHabitaciones(ArrayList<Habitacion> listadoHabitaciones){
+        listadoHabitaciones.add(new Habitacion("A1","Pobre","adsa", 1, 1, false, false, 5));
+        listadoHabitaciones.add(new Habitacion("A2","Pobre2","asd", 1, 1, false, false, 15));
+        listadoHabitaciones.add(new Habitacion("B1","Normal","asd", 2, 2, true, true, 20));
+        listadoHabitaciones.add(new Habitacion("B2","Con dinero","asd", 2, 2, true, false, 30));
+        listadoHabitaciones.add(new Habitacion("C1","Jeque","asd", 3, 3, true, false, 40));
+    }
+
 }

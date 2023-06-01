@@ -90,7 +90,7 @@ public class Main {
                         hotelopcion= sc.nextLine();
                         switch (hotelopcion) {
                             case "1":
-                                gestorReservas.reservaAnadida();
+                                gestorReservas.mostrarHabitacionesDisponibles();
                                 break;
                             case "2":
                                 sistemafaqs.mostarfaqs();
