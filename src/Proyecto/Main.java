@@ -49,10 +49,11 @@ public class Main {
                     validaciones.validarCorreo(email);
                     System.out.println("Teléfono: ");
                     tlf=sc.nextLine();
-                    System.out.println("DNI: ");
-                    dni=sc.nextLine();
-
                     validaciones.validarTelefono(tlf);
+                    do {
+                        System.out.print("Ingrese un número de DNI: ");
+                        dni = sc.nextLine();
+                    } while (!Validaciones.validarDNI(dni));
                     do {
                         System.out.print("Ingresa tu fecha de nacimiento (dd/mm/yyyy): ");
                         fecha = sc.nextLine();

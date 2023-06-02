@@ -31,10 +31,10 @@ public class GestorReservas {
     public void mostrarHabitacionesDisponibles() throws ParseException {
         Scanner sc = new Scanner(System.in);
 
-        String num_personas="";
+
         System.out.println("*******   RESERVAR HABITACIÓN  ********");
         System.out.print("¿Para cuántas personas se hace la reserva? ");
-        int numeroclientes = Integer.parseInt(sc.nextLine());
+        String num_personas = sc.nextLine();
 
         String fechaEntrada;
         String fechaSalida;

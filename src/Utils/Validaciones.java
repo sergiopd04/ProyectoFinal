@@ -18,19 +18,22 @@ public class Validaciones {
 
     public boolean validarNombre(String nombre) {
         Scanner sc = new Scanner(System.in);
+
         boolean salir = false;
+
         do {
-            while(nombre.length() < 3) {
-                System.out.println("El nombre debe tener al menos 3 caracteres. Inténtalo de nuevo.");
-                nombre = sc.nextLine();
+
+            if (nombre.isEmpty()) {
+                System.out.println("Nombre vacío. Vuelva a intentarlo.");
             }
 
-            while(nombre.length() < 3 || !nombre.matches("[a-zA-ZªºñÑ]+")) {
+            if (!nombre.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ]{3,}(\\s+[a-zA-ZñÑáéíóúÁÉÍÓÚ]+)*")) {
                 System.out.println("El nombre debe tener al menos 3 caracteres y contener solo letras. Inténtalo de nuevo.");
                 nombre = sc.nextLine();
+            } else {
+                salir=true;
             }
 
-            salir = true;
         } while (!salir);
 
         return true;
@@ -39,19 +42,22 @@ public class Validaciones {
 
     public boolean validarApellidos(String apellidos) {
         Scanner sc = new Scanner(System.in);
+
         boolean salir = false;
+
         do {
-            while(apellidos.length() < 3) {
-                System.out.println("El apellido debe tener al menos 3 caracteres.");
-                apellidos = sc.nextLine();
+
+            if (apellidos.isEmpty()) {
+                System.out.println("Apellido vacío. Vuelva a intentarlo.");
             }
 
-            while(apellidos.length() < 3 || !apellidos.matches("[a-zA-ZªºñÑ]+")) {
-                System.out.println("El apellido debe tener al menos 3 caracteres y contener solo letras.");
+            if (!apellidos.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ]{3,}(\\s+[a-zA-ZñÑáéíóúÁÉÍÓÚ]+)*")) {
+                System.out.println("El apellido debe tener al menos 3 caracteres y contener solo letras. Inténtalo de nuevo.");
                 apellidos = sc.nextLine();
+            } else {
+                salir=true;
             }
 
-            salir = true;
         } while (!salir);
 
         return true;
@@ -67,7 +73,6 @@ public class Validaciones {
                 System.out.println("Debe ingresar un número de teléfono");
                 System.out.print("Teléfono: ");
                 tlf = sc.nextLine().replace(" ", "");
-                continue;
             }
 
             for (int i = 0; i < tlf.length(); i++) {
@@ -149,7 +154,6 @@ public class Validaciones {
             }
         }
 
-        // Realiza otras validaciones si es necesario, como verificar febrero y los años bisiestos
 
         return true;
     }
@@ -195,7 +199,7 @@ public class Validaciones {
 
         do {
 
-            String[] palabras = frase.split("\\s+");
+            String[] palabras = frase.split(" ");
             if (palabras.length == 4) {
                 validarDig=true;
             } else {
@@ -208,7 +212,7 @@ public class Validaciones {
                 for (int i = 0; i < frase.length(); i++) {
                     char c = frase.charAt(i);
                     if (!Character.isLetter(c) && c != ' ') {
-                        System.out.println("La frase no debe contener dÃ­gitos o caracteres especiales.");
+                        System.out.println("La frase no debe contener dígitos o caracteres especiales.");
                         System.out.println("Frase: ");
                         frase = sc.nextLine();
                     } else {
@@ -244,7 +248,7 @@ public class Validaciones {
                     int cociente = suma / 4;
                     int resto = suma % 4;
                     int codigoNumerico = cociente - resto;
-                    System.out.println("El codigo es el siguiente: " + nuevaFrase.toUpperCase() + codigoNumerico);
+                    System.out.println("El código es el siguiente: " + nuevaFrase.toUpperCase() + codigoNumerico);
                     codigoFinal = nuevaFrase.toUpperCase() + codigoNumerico;
                     salir=true;
                 }
@@ -520,6 +524,31 @@ public class Validaciones {
         } else {
             return false;
         }
+    }
+
+    public static boolean validarDNI(String dni) {
+        if (dni.length() != 9) {
+            System.out.println("El DNI debe tener 9 caracteres.");
+            return false;
+        }
+
+        // Verificar que los primeros 8 caracteres son dígitos numéricos
+        for (int i = 0; i < 8; i++) {
+            if (!Character.isDigit(dni.charAt(i))) {
+                System.out.println("Los primeros 8 caracteres del DNI deben ser dígitos numéricos.");
+                return false;
+            }
+        }
+
+        // Verificar que el último carácter es una letra
+        char lastCharacter = dni.charAt(8);
+        if (!Character.isLetter(lastCharacter)) {
+            System.out.println("El último carácter del DNI debe ser una letra.");
+            return false;
+        }
+
+        // Si todas las verificaciones pasan, el DNI es válido
+        return true;
     }
     public void volverMetodo(){
         String leerOpcion;
