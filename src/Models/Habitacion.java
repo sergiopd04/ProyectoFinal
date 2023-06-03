@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Habitacion {
 
     //Atributos
-    String id;
-    String nombre;
-    String descripcion;
-    int num_camas;
-    int max_personas;
-    boolean banera;
-    boolean ocupada;
-    double precio;
+    private String id;
+    private String nombre;
+    private String descripcion;
+    private int num_camas;
+    private int max_personas;
+    private boolean banera;
+    private boolean ocupada;
+    private double precio;
 
     public Habitacion() {
 

@@ -4,6 +4,7 @@ import Controllers.GestorClientes;
 import Controllers.GestorReservas;
 import Models.AtencionCliente;
 import Models.Cliente;
+import Models.Habitacion;
 import Utils.Validaciones;
 
 import java.io.IOException;
@@ -11,13 +12,20 @@ import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
+        ArrayList<Habitacion> listadoHabitaciones = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         Validaciones validaciones = new Validaciones();
+        Habitacion hab = new Habitacion();
+        listadoHabitaciones.add(new Habitacion("A1","Pobre","adsa", 1, 1, false, false, 5));
+        listadoHabitaciones.add(new Habitacion("A2","Pobre2","asd", 1, 1, false, false, 15));
+        listadoHabitaciones.add(new Habitacion("B1","Normal","asd", 2, 2, true, true, 20));
         AtencionCliente sistemafaqs = new AtencionCliente();
+
         GestorClientes gesCliente = new GestorClientes();
         GestorReservas gestorReservas = new GestorReservas();
         gesCliente.cargarDatos();
@@ -91,7 +99,7 @@ public class Main {
                         hotelopcion= sc.nextLine();
                         switch (hotelopcion) {
                             case "1":
-                                gestorReservas.mostrarHabitacionesDisponibles();
+                                gestorReservas.mostrarHabitacionesDisponibles(listadoHabitaciones);
                                 break;
                             case "2":
                                 sistemafaqs.mostarfaqs();

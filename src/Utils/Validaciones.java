@@ -99,7 +99,7 @@ public class Validaciones {
         return true;
     }
 
-    public boolean validarCorreo(String correo) {
+    public static boolean validarCorreo(String correo) {
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
         do {
@@ -112,7 +112,8 @@ public class Validaciones {
                 correo = sc.nextLine();
             }
         }while (!salir);
-    return true;}
+    return true;
+    }
 
     public static boolean validarFecha(String fecha) {
         String[] partes = fecha.split("/");
@@ -190,7 +191,7 @@ public class Validaciones {
         return codigoFinal;
     }
 
-    public boolean validarFrase(String frase) {
+    public static boolean validarFrase(String frase) {
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
         boolean validarDig = false;
