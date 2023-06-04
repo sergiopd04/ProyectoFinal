@@ -61,6 +61,28 @@ public class GestorReservas {
             }
         }
     }
+    public static int obtenerOpcionElegida() {
+        Scanner sc = new Scanner(System.in);
+        int opcionElegida = -1;
+
+        while (opcionElegida < 1) {
+            System.out.print("Ingrese el número de opción deseada: ");
+            opcionElegida = Integer.parseInt(sc.nextLine());
+        }
+
+        return opcionElegida;
+    }
+
+    public static void imprimirFactura(ArrayList<Habitacion> listadoHabitaciones, int opcionElegida) {
+        System.out.println("*********   FACTURA   *********");
+        System.out.println("Habitación seleccionada:");
+        Habitacion habitacionElegida = listadoHabitaciones.get(opcionElegida - 1);
+        System.out.println("Nombre: " + habitacionElegida.getNombre());
+        System.out.println("Capacidad: " + habitacionElegida.getMax_personas() + " personas");
+        System.out.println("Precio: " + habitacionElegida.getPrecio() + " €");
+        System.out.println("*******************************");
+        // Puedes agregar más detalles a la factura si es necesario
+    }
 
 
     ArrayList<Cliente> listadoReservas=new ArrayList<>();

@@ -22,8 +22,10 @@ public class Main {
         Validaciones validaciones = new Validaciones();
         Habitacion hab = new Habitacion();
         listadoHabitaciones.add(new Habitacion("A1","Pobre","adsa", 1, 1, false, false, 5));
-        listadoHabitaciones.add(new Habitacion("A2","Pobre2","asd", 1, 1, false, false, 15));
+        listadoHabitaciones.add(new Habitacion("A2","Pobre2","asd", 1, 1, false, true, 15));
         listadoHabitaciones.add(new Habitacion("B1","Normal","asd", 2, 2, true, true, 20));
+        listadoHabitaciones.add(new Habitacion("B2","Esta bien","adsa", 2, 2, true, false, 40));
+        listadoHabitaciones.add(new Habitacion("C1","Rico","asd", 3, 3, true, false, 60));
         AtencionCliente sistemafaqs = new AtencionCliente();
 
         GestorClientes gesCliente = new GestorClientes();
@@ -100,6 +102,8 @@ public class Main {
                         switch (hotelopcion) {
                             case "1":
                                 gestorReservas.mostrarHabitacionesDisponibles(listadoHabitaciones);
+                                int opcionElegida = gestorReservas.obtenerOpcionElegida();
+                                gestorReservas.imprimirFactura(listadoHabitaciones, opcionElegida);
                                 break;
                             case "2":
                                 sistemafaqs.mostarfaqs();
