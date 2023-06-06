@@ -3,10 +3,13 @@ package Controllers;
 import java.util.Scanner;
 
 public class GestorPrincipal {
-    Scanner sc = new Scanner(System.in);
-    void MenuGestorPrincipal(){
+
+    public static void menuGestorPrincipal(){
+
+        Scanner sc = new Scanner(System.in);
         boolean salir=false;
         String opcion;
+
         do {
             System.out.println("1. Gestionar clientes");
             System.out.println("2. Gestionar habitaciones");
@@ -29,9 +32,12 @@ public class GestorPrincipal {
         }while (salir);
     }
 
-    private void menuClientes() {
+    public static void menuClientes() {
+
+        Scanner sc = new Scanner(System.in);
         String opcion;
         GestorClientes gestorClientes = new GestorClientes();
+
         do {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
             System.out.println("1. Agregar cliente");
@@ -43,10 +49,10 @@ public class GestorPrincipal {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-
+                    gestorClientes.agregarCliente();
                     break;
                 case "2":
-                    /*gestorClientes.consultarCliente();*/
+
                     break;
                 case "3":
                     /*gestorClientes.actualizarCliente();*/
@@ -62,9 +68,11 @@ public class GestorPrincipal {
             }
         } while (opcion != "5");
     }
-    void menuReservas(){
+    public static void menuReservas(){
+        Scanner sc = new Scanner(System.in);
         String opcion;
         GestorClientes gestorClientes = new GestorClientes();
+
         do {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
             System.out.println("1. Listado reservas");

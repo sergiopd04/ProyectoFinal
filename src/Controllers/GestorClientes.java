@@ -9,10 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GestorClientes {
 
-    ArrayList<Cliente> listadoClientes=new ArrayList<>();
+    static ArrayList<Cliente> listadoClientes=new ArrayList<>();
 
     public GestorClientes(){
 
@@ -82,8 +83,22 @@ public class GestorClientes {
     }
 
 
-    public void agregarCliente(Cliente cliente) {
+    public static void agregarCliente() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el nombre del cliente: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Ingrese el apellido del cliente: ");
+        String apellido = sc.nextLine();
+
+        System.out.print("Ingrese el teléfono del cliente: ");
+        String telefono = sc.nextLine();
+
+        Cliente cliente = new Cliente();
         listadoClientes.add(cliente);
+
+        System.out.println("Cliente agregado correctamente. /n");
     }
 
     public boolean buscarCliente(Cliente cliente) {
@@ -104,6 +119,5 @@ public class GestorClientes {
         Cliente cliente6 = new Cliente("Xusky","Xusky","xusky@gmail.com","205201090K","20/04/1994","4030");
         Cliente cliente7 = new Cliente("William","Willy","willy@gmail.com","20521090I","27/06/1996","2000");
     }
-
      */
 }

@@ -63,7 +63,7 @@ public class Validaciones {
         return true;
     }
 
-    public boolean validarTelefono(String tlf) {
+    public static boolean validarTelefono(String tlf) {
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
 

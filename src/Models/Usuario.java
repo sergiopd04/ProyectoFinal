@@ -9,6 +9,9 @@ public class Usuario {
     public Usuario(String nombreUsuario, String password, boolean rol) {
     }
 
+    public Usuario(boolean rol) {
+    }
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }

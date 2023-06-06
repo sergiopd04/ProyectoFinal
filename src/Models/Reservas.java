@@ -12,6 +12,9 @@ public class Reservas {
     Date fecha_entrada;
     Date fecha_salida;
 
+
+
+
     public int getCod() {
         return cod;
     }

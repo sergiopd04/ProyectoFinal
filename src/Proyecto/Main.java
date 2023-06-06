@@ -1,6 +1,7 @@
 package Proyecto;
 
 import Controllers.GestorClientes;
+import Controllers.GestorPrincipal;
 import Controllers.GestorReservas;
 import Models.AtencionCliente;
 import Models.Cliente;
@@ -9,7 +10,6 @@ import Utils.Validaciones;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.format.DateTimeParseException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Validaciones validaciones = new Validaciones();
         Habitacion hab = new Habitacion();
+
         listadoHabitaciones.add(new Habitacion("A1","Pobre","adsa", 1, 1, false, false, 5));
         listadoHabitaciones.add(new Habitacion("A2","Pobre2","asd", 1, 1, false, true, 15));
         listadoHabitaciones.add(new Habitacion("B1","Normal","asd", 2, 2, true, true, 20));
@@ -106,7 +107,8 @@ public class Main {
                                 gestorReservas.imprimirFactura(listadoHabitaciones, opcionElegida);
                                 break;
                             case "2":
-                                sistemafaqs.mostarfaqs();
+                                /*sistemafaqs.mostarfaqs();*/
+                                GestorPrincipal.menuGestorPrincipal();
                                 break;
                             case "3":
                                 System.out.println("******* MÉTODOS DE PAGO *******");
@@ -119,7 +121,6 @@ public class Main {
                                         while (!tarjetaValida) {
                                             System.out.print("Ingrese el número de tarjeta de crédito: ");
                                             String tarjetaNumero = sc.nextLine();
-
                                             /*String entidadBancaria = Validaciones.Tarjeta(tarjetaNumero);
                                             if (entidadBancaria != null) {
                                                 tarjetaValida = true;

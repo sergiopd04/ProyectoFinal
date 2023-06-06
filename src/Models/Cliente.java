@@ -2,7 +2,7 @@ package Models;
 
 import java.time.LocalDate;
 
-public class Cliente {
+public class Cliente{
     String nombre;
     String apellidos;
     String email;
@@ -19,6 +19,9 @@ public class Cliente {
         this.codigo_acceso = codigo_acceso;
     }
 
+    public Cliente() {
+
+    }
 
     public String getNombre() {
         return nombre;
