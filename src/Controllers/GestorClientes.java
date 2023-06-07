@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Cliente;
 import Models.Reservas;
+import Utils.Validaciones;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GestorClientes {
+
 
     static ArrayList<Cliente> listadoClientes=new ArrayList<>();
 
@@ -34,12 +36,12 @@ public class GestorClientes {
         System.out.println(dni);
     }
 
-    public void guardarCliente(String nombre, String apellidos, String email, String dni, LocalDate fechaNacimiento, String codigoAcceso) throws IOException {
+    public static void guardarCliente(String nombre, String apellidos,boolean rol, String email, String dni, LocalDate fechaNacimiento, String codigoAcceso) throws IOException {
 
-        FileWriter escribir = new FileWriter("src/data/clientes.dat");
+        FileWriter escribir = new FileWriter("src/data/clientes.dat",true);
 
-        Cliente nuevo = new Cliente(nombre,apellidos,email,dni,fechaNacimiento,codigoAcceso);
-        escribir.write(nombre + ";" + apellidos + ";" + email + ";" + dni + ";" + fechaNacimiento + ";" + codigoAcceso + ";" + "\n");
+        Cliente nuevo = new Cliente(nombre,apellidos,rol,email,dni,fechaNacimiento,codigoAcceso);
+        escribir.write(nombre + ";" + apellidos + ";" + rol + ";" + email + ";" + dni + ";" + fechaNacimiento + ";" + codigoAcceso + ";" + "\n");
         escribir.flush();
         escribir.close();
         listadoClientes.add(nuevo);
@@ -63,8 +65,9 @@ public class GestorClientes {
             String[] separacionClientes = campos.split("\n");
             for (String clienteSeparado: separacionClientes) {
                 String[] clienteArray = clienteSeparado.split(";");
-                LocalDate fecha = LocalDate.parse(clienteArray[4]);
-                Cliente cliente = new Cliente(clienteArray[0],clienteArray[1],clienteArray[2],clienteArray[3],fecha,clienteArray[5]);
+                LocalDate fecha = LocalDate.parse(clienteArray[5]);
+                boolean rol = Boolean.parseBoolean(clienteArray[2]);
+                Cliente cliente = new Cliente(clienteArray[0],clienteArray[1],rol,clienteArray[3],clienteArray[4],fecha,clienteArray[6]);
                 listadoClientes.add(cliente);
             }
         }
@@ -83,22 +86,45 @@ public class GestorClientes {
     }
 
 
-    public static void agregarCliente() {
+    public void agregarCliente() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre del cliente: ");
-        String nombre = sc.nextLine();
+        String dni,fecha,fraseControl;
 
-        System.out.print("Ingrese el apellido del cliente: ");
-        String apellido = sc.nextLine();
+        System.out.println("Nombre: ");
+        String nombre=sc.nextLine();
+        Validaciones.validarNombre(nombre);
+        System.out.println("Apellidos: ");
+        String apellidos=sc.nextLine().toUpperCase();
+        Validaciones.validarApellidos(apellidos);
+        System.out.println("Correo: ");
+        String email=sc.nextLine();
+        Validaciones.validarCorreo(email);
+        System.out.println("Teléfono: ");
+        String tlf=sc.nextLine();
+        Validaciones.validarTelefono(tlf);
+        do {
+            System.out.print("Ingrese un número de DNI: ");
+            dni = sc.nextLine();
+        } while (!Validaciones.validarDNI(dni));
+        do {
+            System.out.print("Ingresa tu fecha de nacimiento (dd/mm/yyyy): ");
+            fecha = sc.nextLine();
+        } while (!Validaciones.validarFecha(fecha));
+        LocalDate fechaNacimiento = Validaciones.convertirFecha(fecha);
+        if (Validaciones.calcularEdad(fechaNacimiento)){
+            System.out.print("Frase de Control (4 palabras separadas por espacios): ");
+            fraseControl=sc.nextLine();
+            Validaciones.validarFrase(fraseControl);
+        }
 
-        System.out.print("Ingrese el teléfono del cliente: ");
-        String telefono = sc.nextLine();
+        try {
+            guardarCliente(nombre, apellidos, false, email, dni, fechaNacimiento, Validaciones.getCodigoFinal());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Cliente cliente = new Cliente();
-        listadoClientes.add(cliente);
-
-        System.out.println("Cliente agregado correctamente. /n");
+        System.out.println("Cliente agregado correctamente. \n");
     }
 
     public boolean buscarCliente(Cliente cliente) {

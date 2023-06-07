@@ -7,9 +7,15 @@ public class Usuario {
     boolean rol;
 
     public Usuario(String nombreUsuario, String password, boolean rol) {
+        this.nombreUsuario=nombreUsuario;
+        this.password=password;
+        this.rol=rol;
     }
 
     public Usuario(boolean rol) {
+    }
+
+    public Usuario() {
     }
 
     public String getNombreUsuario() {

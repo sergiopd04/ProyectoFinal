@@ -2,7 +2,7 @@ package Models;
 
 import java.time.LocalDate;
 
-public class Cliente{
+public class Cliente extends Usuario{
     String nombre;
     String apellidos;
     String email;
@@ -10,7 +10,8 @@ public class Cliente{
     LocalDate fecha_nacimiento;
     String codigo_acceso;
 
-    public Cliente(String nombre, String apellidos, String email, String dni, LocalDate fecha_nacimiento, String codigo_acceso) {
+    public Cliente(String nombreUsuario, String password, boolean rol, String nombre, String apellidos, String email, String dni, LocalDate fecha_nacimiento, String codigo_acceso) {
+        super(nombreUsuario, password, rol);
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
@@ -19,8 +20,14 @@ public class Cliente{
         this.codigo_acceso = codigo_acceso;
     }
 
-    public Cliente() {
-
+    public Cliente(String nombre, String apellidos,boolean rol, String email, String dni, LocalDate fecha_nacimiento, String codigo_acceso) {
+        this.rol=rol;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.dni = dni;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.codigo_acceso = codigo_acceso;
     }
 
     public String getNombre() {
@@ -69,6 +76,11 @@ public class Cliente{
 
     public void setCodigo_acceso(String codigo_acceso) {
         this.codigo_acceso = codigo_acceso;
+    }
+
+    @Override
+    public boolean isRol() {
+        return super.isRol();
     }
 
     @Override

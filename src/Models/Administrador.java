@@ -13,4 +13,5 @@ public class Administrador extends Usuario {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
 }

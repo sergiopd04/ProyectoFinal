@@ -1,1 +1,4 @@
-123; SER;1;20521090f;2001-06-27;1;
+123;SER;true;1;20521090f;2001-06-27;1;
+ser;SER;false;ser@gmail.com;20521090F;2004-06-27;EPEV105;
+ser;SER;false;ser@gmail.com;20521090F;0204-06-27;EPEV105;
+sergio;PATIÑO;false;sergio@gmail.com;20521090F;2004-06-27;EPEA110;

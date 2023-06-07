@@ -75,7 +75,7 @@ public class Main {
                         fraseControl=sc.nextLine();
                         validaciones.validarFrase(fraseControl);
                     }
-                    gesCliente.guardarCliente(nombre,apellidos,email,dni,fechaNacimiento, Validaciones.getCodigoFinal());
+                    gesCliente.guardarCliente(nombre,apellidos,false,email,dni,fechaNacimiento, Validaciones.getCodigoFinal());
                     break;
                 case "2":
                     String correoInicio;
@@ -98,6 +98,9 @@ public class Main {
                         System.out.println("2. Atención al cliente");
                         System.out.println("3. Pago on-line con factura");
                         System.out.println("4. Salir");
+                        if (cliente.isRol()){
+                            System.out.println("5. Menú Administrador");
+                        }
                         System.out.print("Elige una opcion: ");
                         hotelopcion= sc.nextLine();
                         switch (hotelopcion) {
@@ -107,8 +110,7 @@ public class Main {
                                 gestorReservas.imprimirFactura(listadoHabitaciones, opcionElegida);
                                 break;
                             case "2":
-                                /*sistemafaqs.mostarfaqs();*/
-                                GestorPrincipal.menuGestorPrincipal();
+                                sistemafaqs.mostarfaqs();
                                 break;
                             case "3":
                                 System.out.println("******* MÉTODOS DE PAGO *******");
@@ -121,14 +123,13 @@ public class Main {
                                         while (!tarjetaValida) {
                                             System.out.print("Ingrese el número de tarjeta de crédito: ");
                                             String tarjetaNumero = sc.nextLine();
-                                            /*String entidadBancaria = Validaciones.Tarjeta(tarjetaNumero);
+                                            String entidadBancaria = String.valueOf(Validaciones.Tarjeta(tarjetaNumero));
                                             if (entidadBancaria != null) {
                                                 tarjetaValida = true;
                                                 System.out.println("Tarjeta de crédito válida.");
-                                                System.out.println("Entidad bancaria: " + entidadBancaria);
                                             } else {
                                                 System.out.println("Tarjeta de crédito inválida. Por favor, intente nuevamente.");
-                                            }*/
+                                            }
                                         }
                                         break;
                                     case "2":
@@ -140,6 +141,13 @@ public class Main {
                             case "4":
                                 System.out.println("Saliendo...");
                                 break;
+                            case "5":
+                                if (cliente.isRol()){
+                                    GestorPrincipal.menuGestorPrincipal();
+                                    break;
+                                }
+                                break;
+
                             default:
                                 System.out.println("Opcion incorrecta.");
                                 break;

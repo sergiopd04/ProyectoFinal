@@ -16,7 +16,7 @@ public class Validaciones {
 
     }
 
-    public boolean validarNombre(String nombre) {
+    public static boolean validarNombre(String nombre) {
         Scanner sc = new Scanner(System.in);
 
         boolean salir = false;
@@ -40,7 +40,7 @@ public class Validaciones {
     }
 
 
-    public boolean validarApellidos(String apellidos) {
+    public static boolean validarApellidos(String apellidos) {
         Scanner sc = new Scanner(System.in);
 
         boolean salir = false;
