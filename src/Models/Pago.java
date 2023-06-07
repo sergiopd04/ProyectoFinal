@@ -1,5 +1,9 @@
 package Models;
 
+import Utils.Validaciones;
+
+import java.util.Scanner;
+
 public class Pago {
     String nombre;
     String apellidos;
@@ -56,12 +60,34 @@ public class Pago {
         this.precio = precio;
     }
 
-    public Pago(String nombre, String apellidos, String fechaFactura, String codigoFactura, String descripcion, double precio){
-        this.nombre= nombre;
-        this.apellidos=apellidos;
-        this.fechaFactura=fechaFactura;
-        this.codigoFactura=codigoFactura;
-        this.descripcion=descripcion;
-        this.precio=precio;
+    public Pago(String nombre, String apellidos, String fechaFactura, String codigoFactura, String descripcion, double precio) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaFactura = fechaFactura;
+        this.codigoFactura = codigoFactura;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
+
+    public static void pagoATM() {
+
+        Scanner sc = new Scanner(System.in);
+
+        String metpagoopcion,numeroTarjeta;
+        System.out.println("******* MÉTODOS DE PAGO *******");
+        System.out.println("1. Tarjeta");
+        System.out.println("2. Bizum.");
+        metpagoopcion = sc.nextLine();
+        switch (metpagoopcion) {
+            case "1":
+                do {
+                    System.out.print("Ingrese un número de tarjeta: ");
+                    numeroTarjeta = sc.nextLine();
+                } while (!Validaciones.Tarjeta(numeroTarjeta));
+                break;
+            case "2":
+                Validaciones.validarBizum();
+                break;
+        }
     }
 }

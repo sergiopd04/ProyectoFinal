@@ -527,6 +527,30 @@ public class Validaciones {
         }
     }
 
+    public static void validarBizum(){
+        Scanner sc = new Scanner(System.in);
+
+        String confirmar;
+
+        System.out.println("Has elegido la opción de pago con Bizum.");
+        System.out.println("El número de teléfono disponible al que realizar el pago es el siguiente: +34 685 04 05 47");
+
+        do {
+            System.out.println("Una vez hayas realizado, confirma que has realizado el pago correctamente mediante S/N");
+            confirmar = sc.nextLine().toUpperCase();
+
+            if (confirmar.equals("S")) {
+                System.out.println("Pago realizado correctamente. Gracias por tu compra.");
+                break;
+            } else if (confirmar.equals("N")) {
+                System.out.println("El pago no se ha realizado. Por favor, intenta nuevamente.");
+                break;
+            } else {
+                System.out.println("Opción no válida. Por favor, introduce 'S' para confirmar o 'N' para cancelar el pago.");
+            }
+        } while (true);
+    }
+
     public static boolean validarDNI(String dni) {
         if (dni.length() != 9) {
             System.out.println("El DNI debe tener 9 caracteres.");
@@ -551,10 +575,5 @@ public class Validaciones {
         // Si todas las verificaciones pasan, el DNI es válido
         return true;
     }
-    public void volverMetodo(){
-        String leerOpcion;
-        System.out.println("¿Desea volver?S/N");
 
-
-    }
 }
