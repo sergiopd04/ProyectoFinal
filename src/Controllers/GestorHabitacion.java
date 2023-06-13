@@ -2,12 +2,14 @@ package Controllers;
 
 import Models.Cliente;
 import Models.Habitacion;
+import Utils.Validaciones;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GestorHabitacion {
 
@@ -29,45 +31,112 @@ public class GestorHabitacion {
         this.listadoHabitaciones = listadoHabitaciones;
     }
 
-    public static void guardarCliente(String nombre, String apellidos, boolean rol, String email, String dni, LocalDate fecha, String codigoAcceso) throws IOException {
 
-        FileWriter escribir = new FileWriter("src/data/clientes.dat", true);
+    public static void guardarHabitacion(String id, String nombre, String descripcion, int num_camas, int max_personas, boolean banera, boolean ocupada, double precio) throws IOException {
 
-        Habitacion nuevo = new Habitacion(nombre, apellidos, rol, email, dni, fecha, codigoAcceso);
-        escribir.write(nombre + ";" + apellidos + ";" + rol + ";" + email + ";" + dni + ";" + fecha + ";" + codigoAcceso + ";" + "\n");
+        FileWriter escribir = new FileWriter("src/data/habitaciones.dat", true);
+
+        Habitacion nuevo = new Habitacion();
+        escribir.write(id + ";" + nombre + ";" + descripcion + ";" + num_camas + ";" + max_personas + ";" + banera + ";" + ocupada + ";" + precio +"\n");
         escribir.flush();
         escribir.close();
         listadoHabitaciones.add(nuevo);
     }
 
-    public void cargarDatos() throws IOException{
+    public void cargarDatos() throws IOException {
 
-        FileReader lector = new FileReader("src/data/clientes.dat");
+        FileReader lector = new FileReader("src/data/habitaciones.dat");
 
         int datos;
         datos = lector.read();
         String campos = "";
 
         while (datos != -1) {
-            campos = campos + (char)datos;
+            campos = campos + (char) datos;
             datos = lector.read();
         }
         lector.close();
 
         if (!campos.equals("")) {
-            String[] separacionClientes = campos.split("\n");
-            for (String clienteSeparado: separacionClientes) {
-                String[] clienteArray = clienteSeparado.split(";");
-                if (clienteArray.length >= 6) {
-                    LocalDate fecha = LocalDate.parse(clienteArray[5]);
-                    boolean rol = Boolean.parseBoolean(clienteArray[2]);
-                    Cliente cliente = new Cliente(clienteArray[0],clienteArray[1],rol,clienteArray[3],clienteArray[4],fecha,clienteArray[6]);
-                    listadoClientes.add(cliente);
+            String[] separacionHabitaciones = campos.split("\n");
+            for (String habitacionSeparado : separacionHabitaciones) {
+                String[] habitacionArray = habitacionSeparado.split(";");
+                if (habitacionArray.length >= 8) {
+                    int num_camas = Integer.parseInt(habitacionArray[4]);
+                    int max_personas = Integer.parseInt(habitacionArray[5]);
+                    boolean banera = Boolean.parseBoolean(habitacionArray[6]);
+                    boolean ocupada = Boolean.parseBoolean(habitacionArray[7]);
+                    double precio = Double.parseDouble(habitacionArray[8]);
+                    Habitacion habitacion = new Habitacion(habitacionArray[0], habitacionArray[1], habitacionArray[2], num_camas, max_personas, banera, ocupada, precio);
+                    listadoHabitaciones.add(habitacion);
                 } else {
-                    System.out.println("Eror");
+                    System.out.println("Error");
                 }
 
             }
         }
     }
-}
+
+    public void agregarHabitacion() {
+        Scanner sc = new Scanner(System.in);
+
+        String id,nombre,descripcion,compbanera,compocupada,numCamas, maxPersonas,precio;
+        boolean banera=false;
+        boolean ocupada=false;
+
+        System.out.println("ID: ");
+        id=sc.nextLine();
+        System.out.println("Nombre: ");
+        nombre=sc.nextLine();
+        System.out.println("Descripción: ");
+        descripcion=sc.nextLine();
+        System.out.println("Camas: ");
+        numCamas=sc.nextLine();
+        int num_camas = Integer.parseInt(numCamas);
+        System.out.println("Maximo personas: ");
+        maxPersonas=sc.nextLine();
+        int max_personas = Integer.parseInt(maxPersonas);
+
+        System.out.println("Bañera: ");
+        compbanera=sc.nextLine();
+        if (compbanera.equals("S")){
+            banera=true;
+        }else banera=false;
+
+        System.out.println("Ocupada: ");
+        compocupada=sc.nextLine();
+        if (compocupada.equals("S")){
+            ocupada=true;
+        }else banera=false;
+
+        System.out.println("Precio: ");
+        precio=sc.nextLine();
+
+        try {
+            guardarHabitacion(id, nombre,descripcion,num_camas,max_personas,banera,ocupada, Double.parseDouble(precio));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Habitacion agregada correctamente. \n");
+        }
+
+    public void buscarCliente() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el DNI del cliente: ");
+        String dni = scanner.nextLine();
+
+        for (Cliente cliente : listadoClientes) {
+            if (cliente.getDni().equals(dni)) {
+                System.out.println("Nombre: " + cliente.getNombre());
+                System.out.println("Apellido: " + cliente.getApellidos());
+                System.out.println("Email: " + cliente.getEmail());
+                System.out.println("DNI: " + cliente.getDni());
+                System.out.println("Fecha de Nacimiento: " + cliente.getFecha_nacimiento());
+                System.out.println("Código de acceso: " + cliente.getCodigo_acceso());
+                return;
+            }
+        }
+
+        System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
+    }
+    }

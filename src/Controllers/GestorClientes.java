@@ -2,9 +2,8 @@ package Controllers;
 
 import Models.Cliente;
 import Utils.Validaciones;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -153,16 +152,50 @@ public class GestorClientes {
         System.out.print("Ingrese el DNI del cliente a eliminar: ");
         String dni = scanner.nextLine();
 
-        for (Iterator<Cliente> iterator = listadoClientes.iterator(); iterator.hasNext(); ) {
-            Cliente cliente = iterator.next();
-            if (cliente.getDni().equals(dni)) {
-                iterator.remove();
-                System.out.println("Cliente eliminado exitosamente.");
-                return;
+        String archivo = "src/data/clientes.dat";
+
+        try {
+            RandomAccessFile raf = new RandomAccessFile(archivo, "rw");
+
+            boolean encontrado = false;
+            long posicion = 0;
+            String linea;
+
+            while ((linea = raf.readLine()) != null) {
+                String[] datosCliente = linea.split(";");
+                if (datosCliente[4].equals(dni)) {
+                    encontrado = true;
+                    break;
+                }
+                posicion = raf.getFilePointer();
             }
+
+            if (encontrado) {
+                raf.seek(posicion);
+                String siguienteLinea;
+                long inicioLineaSiguiente;
+
+                if ((siguienteLinea = raf.readLine()) != null) {
+                    inicioLineaSiguiente = raf.getFilePointer();
+                    raf.seek(posicion);
+                    raf.writeBytes(siguienteLinea);
+                    raf.setLength(raf.length() - (inicioLineaSiguiente - posicion));
+                    System.out.println("Cliente eliminado exitosamente.");
+                } else {
+                    raf.setLength(posicion);
+                    System.out.println("Cliente eliminado exitosamente.");
+                }
+            } else {
+                System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
+            }
+
+            raf.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
     }
+
     public void modificarCliente() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el DNI del cliente a modificar: ");

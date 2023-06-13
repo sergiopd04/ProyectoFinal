@@ -28,7 +28,7 @@ public class Habitacion {
         this.ocupada = ocupada;
         this.precio = precio;
     }
-    //Getter and Setter
+
 
     public String getId() {
         return id;

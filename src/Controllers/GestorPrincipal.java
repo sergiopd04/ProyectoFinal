@@ -22,6 +22,8 @@ public class GestorPrincipal {
                 case "1":
                     menuClientes();
                     break;
+                case "2":
+                    menuHabitacion();
                 case "3":
                     menuReservas();
                     break;
@@ -62,6 +64,32 @@ public class GestorPrincipal {
                     break;
                 case "5":
                     System.out.println("Regresando al menú anterior...");
+                    break;
+                default:
+                    System.out.println("Opción inválida, intente de nuevo");
+            }
+        } while (opcion != "5");
+    }
+
+    public static void menuHabitacion(){
+        Scanner sc = new Scanner(System.in);
+        String opcion;
+        GestorHabitacion gestorHabitacion = new GestorHabitacion();
+
+        do {
+            System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
+            System.out.println("1. Agregar Habitación");
+            System.out.println("2. Consultar Habitación");
+            System.out.print("Elija una opción: ");
+            opcion = sc.nextLine();
+            switch (opcion) {
+                case "1":
+                    gestorHabitacion.agregarHabitacion();
+                    break;
+                case "2":
+                    /*gestorReservas.cancelarReserva();*/
+                    break;
+                case "3":
                     break;
                 default:
                     System.out.println("Opción inválida, intente de nuevo");

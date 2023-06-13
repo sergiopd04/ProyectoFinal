@@ -1,6 +1,7 @@
 package Proyecto;
 
 import Controllers.GestorClientes;
+import Controllers.GestorHabitacion;
 import Controllers.GestorPrincipal;
 import Controllers.GestorReservas;
 import Models.AtencionCliente;
@@ -33,6 +34,8 @@ public class Main {
 
         GestorClientes gesCliente = new GestorClientes();
         gesCliente.cargarDatos();
+        GestorHabitacion gestorHabitacion = new GestorHabitacion();
+        gestorHabitacion.cargarDatos();
 
         String opcion,hotelopcion,metpagoopcion;
         String nombre, apellidos, email, tlf, dni, fraseControl, emailLogin, codLogin, numeroTarjeta, CCV, fechaCad, fechaEntrada, fechaSalida,fecha,numPersonas;

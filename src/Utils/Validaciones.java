@@ -536,14 +536,11 @@ public class Validaciones {
         System.out.println("El número de teléfono disponible al que realizar el pago es el siguiente: +34 685 04 05 47");
 
         do {
-            System.out.println("Una vez hayas realizado, confirma que has realizado el pago correctamente mediante S/N");
+            System.out.println("Una vez hayas realizado, confirma que has realizado el pago correctamente mediante S");
             confirmar = sc.nextLine().toUpperCase();
 
             if (confirmar.equals("S")) {
-                System.out.println("Pago realizado correctamente. Gracias por tu compra.");
-                break;
-            } else if (confirmar.equals("N")) {
-                System.out.println("El pago no se ha realizado. Por favor, intenta nuevamente.");
+                System.out.println("Pago realizado correctamente. Gracias por reservar.");
                 break;
             } else {
                 System.out.println("Opción no válida. Por favor, introduce 'S' para confirmar o 'N' para cancelar el pago.");
