@@ -117,7 +117,7 @@ public class GestorReservas {
         listadoReservas.add(nuevo);
     }
 
-    public void cargarDatos() throws IOException{
+    public void cargarDatos() throws IOException {
 
         FileReader lector = new FileReader("src/data/reservas.dat");
 
@@ -126,48 +126,61 @@ public class GestorReservas {
         String campos = "";
 
         while (datos != -1) {
-            campos = campos + (char)datos;
+            campos = campos + (char) datos;
             datos = lector.read();
         }
         lector.close();
 
         if (!campos.equals("")) {
             String[] separacionReservas = campos.split("\n");
-            for (String reservaSeparado: separacionReservas) {
+            for (String reservaSeparado : separacionReservas) {
                 String[] reservasArray = reservaSeparado.split(";");
                 LocalDate fecha_entrada = LocalDate.parse(reservasArray[3]);
                 LocalDate fecha_salida = LocalDate.parse(reservasArray[4]);
                 int cod = Integer.parseInt(reservasArray[0]);
-                Reservas reservas = new Reservas(cod,reservasArray[1],reservasArray[2],fecha_entrada,fecha_salida);
+                Reservas reservas = new Reservas(cod, reservasArray[1], reservasArray[2], fecha_entrada, fecha_salida);
                 listadoReservas.add(reservas);
             }
         }
-
-        /*public void agregarReservas(){
-            Scanner sc = new Scanner(System.in);
-
-            System.out.println("Codigo: ");
-            String codigo=sc.nextLine();
-            int cod = Integer.parseInt(codigo);
-            System.out.println("Id Cliente: ");
-            String id_cliente=sc.nextLine();
-            System.out.println("Id Habitacion: ");
-            String id_habitacion=sc.nextLine();
-            System.out.println("Fecha entrada");
-            String fechaEntrada=sc.nextLine();
-            LocalDate fecha_entrada= LocalDate.parse(fechaEntrada);
-            System.out.println("Fecha salida");
-            String fechaSalida=sc.nextLine();
-            LocalDate fecha_salida=LocalDate.parse(fechaSalida);
-
-            try {
-                guardarReservas(cod,id_cliente,id_habitacion,fecha_entrada,fecha_salida);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            System.out.println("Reserva agregada correctamente. \n");
-        }*/
-
     }
+
+    public void agregarReservas(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Codigo: ");
+        String codigo=sc.nextLine();
+        int cod = Integer.parseInt(codigo);
+        System.out.println("Id Cliente: ");
+        String id_cliente=sc.nextLine();
+        System.out.println("Id Habitacion: ");
+        String id_habitacion=sc.nextLine();
+        System.out.println("Fecha entrada");
+        String fecha_entrada=sc.nextLine();
+        System.out.println("Fecha salida");
+        String fecha_salida=sc.nextLine();
+
+        LocalDate fechaEntrada = Validaciones.convertirFecha(fecha_entrada);
+        LocalDate fechaSalida = Validaciones.convertirFecha(fecha_salida);
+
+        try {
+            guardarReservas(cod,id_cliente,id_habitacion, fechaEntrada,fechaSalida);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("Reserva agregada correctamente. \n");
+    }
+
+    public void listarReservas(){
+        for (Reservas reservas : listadoReservas) {
+            System.out.println("**************************");
+            System.out.println("Codigo: "+ reservas.getCod());
+            System.out.println("Cliente ID: "+ reservas.getId_cliente());
+            System.out.println("Habitacion ID: "+ reservas.getId_habitacion());
+            System.out.println("Fecha entrada: "+ reservas.getFecha_entrada());
+            System.out.println("Fecha salida: "+ reservas.getFecha_salida());
+        }
+    }
+
 }
+

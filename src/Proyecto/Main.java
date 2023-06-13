@@ -36,6 +36,8 @@ public class Main {
         gesCliente.cargarDatos();
         GestorHabitacion gestorHabitacion = new GestorHabitacion();
         gestorHabitacion.cargarDatos();
+        GestorReservas gestorReservas = new GestorReservas();
+        gestorReservas.cargarDatos();
 
         String opcion,hotelopcion,metpagoopcion;
         String nombre, apellidos, email, tlf, dni, fraseControl, emailLogin, codLogin, numeroTarjeta, CCV, fechaCad, fechaEntrada, fechaSalida,fecha,numPersonas;

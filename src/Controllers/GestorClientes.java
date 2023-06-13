@@ -68,7 +68,7 @@ public class GestorClientes {
                     Cliente cliente = new Cliente(clienteArray[0],clienteArray[1],rol,clienteArray[3],clienteArray[4],fecha,clienteArray[6]);
                     listadoClientes.add(cliente);
                 } else {
-                    System.out.println("Eror");
+
                 }
 
             }

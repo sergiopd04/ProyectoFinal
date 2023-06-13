@@ -61,7 +61,7 @@ public class GestorHabitacion {
             String[] separacionHabitaciones = campos.split("\n");
             for (String habitacionSeparado : separacionHabitaciones) {
                 String[] habitacionArray = habitacionSeparado.split(";");
-                if (habitacionArray.length >= 8) {
+                if (habitacionArray.length >= 9) {
                     int num_camas = Integer.parseInt(habitacionArray[4]);
                     int max_personas = Integer.parseInt(habitacionArray[5]);
                     boolean banera = Boolean.parseBoolean(habitacionArray[6]);
@@ -70,7 +70,7 @@ public class GestorHabitacion {
                     Habitacion habitacion = new Habitacion(habitacionArray[0], habitacionArray[1], habitacionArray[2], num_camas, max_personas, banera, ocupada, precio);
                     listadoHabitaciones.add(habitacion);
                 } else {
-                    System.out.println("Error");
+
                 }
 
             }
@@ -107,7 +107,7 @@ public class GestorHabitacion {
         compocupada=sc.nextLine();
         if (compocupada.equals("S")){
             ocupada=true;
-        }else banera=false;
+        }else ocupada=false;
 
         System.out.println("Precio: ");
         precio=sc.nextLine();
@@ -120,23 +120,24 @@ public class GestorHabitacion {
         System.out.println("Habitacion agregada correctamente. \n");
         }
 
-    public void buscarCliente() {
+    public void buscarHabitacion() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el DNI del cliente: ");
-        String dni = scanner.nextLine();
+        System.out.print("Ingrese el ID de la habitacion: ");
+        String id = scanner.nextLine();
 
-        for (Cliente cliente : listadoClientes) {
-            if (cliente.getDni().equals(dni)) {
-                System.out.println("Nombre: " + cliente.getNombre());
-                System.out.println("Apellido: " + cliente.getApellidos());
-                System.out.println("Email: " + cliente.getEmail());
-                System.out.println("DNI: " + cliente.getDni());
-                System.out.println("Fecha de Nacimiento: " + cliente.getFecha_nacimiento());
-                System.out.println("Código de acceso: " + cliente.getCodigo_acceso());
+        for (Habitacion habitacion : listadoHabitaciones) {
+            if (habitacion.getId().equals(id)) {
+                System.out.println("Id: " + habitacion.getId());
+                System.out.println("Nombre: " + habitacion.getNombre());
+                System.out.println("Descripción: " + habitacion.getDescripcion());
+                System.out.println("Camas: " + habitacion.getNum_camas());
+                System.out.println("Personas: " + habitacion.getMax_personas());
+                System.out.println("Bañera: " + habitacion.isBanera());
+                System.out.println("Ocupada: " + habitacion.isOcupada());
                 return;
             }
         }
 
-        System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
+        System.out.println("No se encontró ninguna habitacion con el ID proporcionado.");
     }
     }

@@ -87,7 +87,7 @@ public class GestorPrincipal {
                     gestorHabitacion.agregarHabitacion();
                     break;
                 case "2":
-                    /*gestorReservas.cancelarReserva();*/
+                    gestorHabitacion.buscarHabitacion();
                     break;
                 case "3":
                     break;
@@ -109,10 +109,10 @@ public class GestorPrincipal {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-                    /*gestorReservas.agregarReserva();*/
+                    gestorReservas.agregarReservas();
                     break;
                 case "2":
-                    /*gestorReservas.cancelarReserva();*/
+                    gestorReservas.listarReservas();
                     break;
                 case "3":
                     break;
