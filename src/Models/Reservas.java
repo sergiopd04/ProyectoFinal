@@ -1,17 +1,16 @@
 package Models;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Reservas {
-
 
     int cod;
     String id_cliente;
     String id_habitacion;
-    Date fecha_entrada;
-    Date fecha_salida;
-
+    LocalDate fecha_entrada;
+    LocalDate fecha_salida;
 
 
 
@@ -39,23 +38,23 @@ public class Reservas {
         this.id_habitacion = id_habitacion;
     }
 
-    public Date getFecha_entrada() {
+    public LocalDate getFecha_entrada() {
         return fecha_entrada;
     }
 
-    public void setFecha_entrada(Date fecha_entrada) {
+    public void setFecha_entrada(LocalDate fecha_entrada) {
         this.fecha_entrada = fecha_entrada;
     }
 
-    public Date getFecha_salida() {
+    public LocalDate getFecha_salida() {
         return fecha_salida;
     }
 
-    public void setFecha_salida(Date fecha_salida) {
+    public void setFecha_salida(LocalDate fecha_salida) {
         this.fecha_salida = fecha_salida;
     }
 
-    public Reservas(int cod, String id_cliente, String id_habitacion, Date fecha_entrada, Date fecha_salida){
+    public Reservas(int cod, String id_cliente, String id_habitacion, LocalDate fecha_entrada, LocalDate fecha_salida){
         this.cod=cod;
         this.id_cliente=id_cliente;
         this.id_habitacion=id_habitacion;
@@ -63,8 +62,6 @@ public class Reservas {
         this.fecha_salida=fecha_salida;
     }
 
-    public Reservas() {
-    }
 }
 
 

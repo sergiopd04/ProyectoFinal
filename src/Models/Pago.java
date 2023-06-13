@@ -70,10 +70,9 @@ public class Pago {
     }
 
     public static void pagoATM() {
-
         Scanner sc = new Scanner(System.in);
 
-        String metpagoopcion,numeroTarjeta;
+        String metpagoopcion, numeroTarjeta;
         System.out.println("******* MÉTODOS DE PAGO *******");
         System.out.println("1. Tarjeta");
         System.out.println("2. Bizum.");
@@ -83,7 +82,7 @@ public class Pago {
                 do {
                     System.out.print("Ingrese un número de tarjeta: ");
                     numeroTarjeta = sc.nextLine();
-                } while (!Validaciones.Tarjeta(numeroTarjeta));
+                } while (!Validaciones.Tarjeta(numeroTarjeta) || numeroTarjeta.isEmpty());
                 break;
             case "2":
                 Validaciones.validarBizum();

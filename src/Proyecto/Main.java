@@ -28,10 +28,10 @@ public class Main {
         listadoHabitaciones.add(new Habitacion("B1","Normal","asd", 2, 2, true, true, 20));
         listadoHabitaciones.add(new Habitacion("B2","Esta bien","adsa", 2, 2, true, false, 40));
         listadoHabitaciones.add(new Habitacion("C1","Rico","asd", 3, 3, true, false, 60));
+
         AtencionCliente sistemafaqs = new AtencionCliente();
 
         GestorClientes gesCliente = new GestorClientes();
-        GestorReservas gestorReservas = new GestorReservas();
         gesCliente.cargarDatos();
 
         String opcion,hotelopcion,metpagoopcion;
@@ -105,10 +105,10 @@ public class Main {
                         hotelopcion= sc.nextLine();
                         switch (hotelopcion) {
                             case "1":
-                                gestorReservas.mostrarHabitacionesDisponibles(listadoHabitaciones);
-                                int opcionElegida = gestorReservas.obtenerOpcionElegida();
+                                GestorReservas.mostrarHabitacionesDisponibles(listadoHabitaciones);
+                                int opcionElegida = GestorReservas.obtenerOpcionElegida();
                                 Pago.pagoATM();
-                                gestorReservas.imprimirFactura(listadoHabitaciones, opcionElegida);
+                                GestorReservas.imprimirFactura(listadoHabitaciones, opcionElegida);
                                 break;
                             case "2":
                                 sistemafaqs.mostarfaqs();

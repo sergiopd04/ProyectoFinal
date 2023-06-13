@@ -52,13 +52,13 @@ public class GestorPrincipal {
                     gestorClientes.agregarCliente();
                     break;
                 case "2":
-
+                    gestorClientes.buscarCliente();
                     break;
                 case "3":
-                    /*gestorClientes.actualizarCliente();*/
+                    gestorClientes.modificarCliente();
                     break;
                 case "4":
-                    /*gestorClientes.eliminarCliente();*/
+                    gestorClientes.eliminarCliente();
                     break;
                 case "5":
                     System.out.println("Regresando al menú anterior...");
@@ -71,7 +71,7 @@ public class GestorPrincipal {
     public static void menuReservas(){
         Scanner sc = new Scanner(System.in);
         String opcion;
-        GestorClientes gestorClientes = new GestorClientes();
+        GestorReservas gestorReservas = new GestorReservas();
 
         do {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
@@ -81,10 +81,12 @@ public class GestorPrincipal {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-
+                    /*gestorReservas.agregarReserva();*/
                     break;
                 case "2":
                     /*gestorReservas.cancelarReserva();*/
+                    break;
+                case "3":
                     break;
                 default:
                     System.out.println("Opción inválida, intente de nuevo");
