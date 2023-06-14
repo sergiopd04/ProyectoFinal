@@ -252,5 +252,4 @@ public class GestorClientes {
         }
         System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
     }
-
 }

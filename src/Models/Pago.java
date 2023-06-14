@@ -73,10 +73,12 @@ public class Pago {
         Scanner sc = new Scanner(System.in);
 
         String metpagoopcion, numeroTarjeta;
-        System.out.println("******* MÉTODOS DE PAGO *******");
-        System.out.println("1. Tarjeta");
-        System.out.println("2. Bizum.");
-        metpagoopcion = sc.nextLine();
+        do {
+            System.out.println("******* MÉTODOS DE PAGO *******");
+            System.out.println("1. Tarjeta");
+            System.out.println("2. Bizum.");
+            metpagoopcion = sc.nextLine();
+        }while (metpagoopcion.isEmpty());
         switch (metpagoopcion) {
             case "1":
                 do {

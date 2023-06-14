@@ -15,7 +15,6 @@ public class GestorPrincipal {
             System.out.println("2. Gestionar habitaciones");
             System.out.println("3. Gestionar reservas");
             System.out.println("4. Volver al menú anterior");
-            System.out.println("0. Salir de la aplicación");
             System.out.println("Elige opción");
             opcion= sc.nextLine();
             switch (opcion){
@@ -31,7 +30,7 @@ public class GestorPrincipal {
                     System.out.println("Opción incorrecta...");
             }
 
-        }while (salir);
+        }while (!opcion.equals("4"));
     }
 
     public static void menuClientes() {
@@ -80,6 +79,7 @@ public class GestorPrincipal {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
             System.out.println("1. Agregar Habitación");
             System.out.println("2. Consultar Habitación");
+            System.out.println("3. Salir");
             System.out.print("Elija una opción: ");
             opcion = sc.nextLine();
             switch (opcion) {
@@ -90,11 +90,12 @@ public class GestorPrincipal {
                     gestorHabitacion.buscarHabitacion();
                     break;
                 case "3":
+                    System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opción inválida, intente de nuevo");
             }
-        } while (opcion != "5");
+        } while (opcion != "3");
     }
     public static void menuReservas(){
         Scanner sc = new Scanner(System.in);
@@ -103,8 +104,10 @@ public class GestorPrincipal {
 
         do {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
-            System.out.println("1. Listado reservas");
-            System.out.println("2. Cancelar reserva");
+            System.out.println("1. Agregar reserva");
+            System.out.println("2. Listar reserva");
+            System.out.println("3. Cancelar reserva");
+            System.out.println("4. Salir");
             System.out.print("Elija una opción: ");
             opcion = sc.nextLine();
             switch (opcion) {
@@ -115,10 +118,14 @@ public class GestorPrincipal {
                     gestorReservas.listarReservas();
                     break;
                 case "3":
+                    gestorReservas.cancelarReservas();
+                    break;
+                case "4":
+                    System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opción inválida, intente de nuevo");
             }
-        } while (opcion != "5");
+        } while (opcion != "4");
     }
 }

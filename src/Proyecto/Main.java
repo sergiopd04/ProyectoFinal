@@ -42,7 +42,6 @@ public class Main {
         String opcion,hotelopcion,metpagoopcion;
         String nombre, apellidos, email, tlf, dni, fraseControl, emailLogin, codLogin, numeroTarjeta, CCV, fechaCad, fechaEntrada, fechaSalida,fecha,numPersonas;
         boolean tarjetaValida = false;
-        boolean opcion2=false;
 
         do {
             System.out.print("*************\nTarifa Dreams\n*************\n");
@@ -99,7 +98,6 @@ public class Main {
                         break;
                     }
                     do {
-                        boolean volverOpcion2=false;
                         System.out.println("1. Reserva de habitación");
                         System.out.println("2. Atención al cliente");
                         if (cliente.isRol()){
@@ -127,15 +125,15 @@ public class Main {
                             case "4":
                                 System.out.println("Saliendo...");
                                 break;
-
                             default:
                                 System.out.println("Opcion incorrecta.");
                                 break;
                         }
-                    }while (!opcion2);
+                    }while (!hotelopcion.equals("4"));
                     break;
                 case "0":
                     System.out.println("Saliendo...");
+
                     break;
                 default:
                     System.out.println("Opción incorrecta");

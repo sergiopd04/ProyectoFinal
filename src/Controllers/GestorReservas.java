@@ -5,9 +5,7 @@ import Models.Habitacion;
 import Models.Reservas;
 import Utils.Validaciones;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -179,6 +177,55 @@ public class GestorReservas {
             System.out.println("Habitacion ID: "+ reservas.getId_habitacion());
             System.out.println("Fecha entrada: "+ reservas.getFecha_entrada());
             System.out.println("Fecha salida: "+ reservas.getFecha_salida());
+        }
+    }
+
+    public void cancelarReservas() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el código de la habitación a eliminar: ");
+        String habitacion = scanner.nextLine();
+
+        String archivo = "src/data/reservas.dat";
+
+        try {
+            RandomAccessFile raf = new RandomAccessFile(archivo, "rw");
+
+            boolean encontrado = false;
+            long posicion = 0;
+            String linea;
+
+            while ((linea = raf.readLine()) != null) {
+                String[] datosReserva = linea.split(";");
+                if (datosReserva[0].equals(habitacion)) {
+                    encontrado = true;
+                    break;
+                }
+                posicion = raf.getFilePointer();
+            }
+
+            if (encontrado) {
+                raf.seek(posicion);
+                String siguienteLinea;
+                long inicioLineaSiguiente;
+
+                if ((siguienteLinea = raf.readLine()) != null) {
+                    inicioLineaSiguiente = raf.getFilePointer();
+                    raf.seek(posicion);
+                    raf.writeBytes(siguienteLinea);
+                    raf.setLength(raf.length() - (inicioLineaSiguiente - posicion));
+                    System.out.println("Reserva eliminada exitosamente.");
+                } else {
+                    raf.setLength(posicion);
+                    System.out.println("Reserva eliminada exitosamente.");
+                }
+            } else {
+                System.out.println("No se encontró ninguna reserva con el código proporcionado.");
+            }
+
+            raf.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
