@@ -105,9 +105,10 @@ public class GestorPrincipal {
         do {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
             System.out.println("1. Agregar reserva");
-            System.out.println("2. Listar reserva");
+            System.out.println("2. Listar reservas");
             System.out.println("3. Cancelar reserva");
-            System.out.println("4. Salir");
+            System.out.println("4. Modificar reserva");
+            System.out.println("5. Salir");
             System.out.print("Elija una opción: ");
             opcion = sc.nextLine();
             switch (opcion) {
@@ -121,6 +122,9 @@ public class GestorPrincipal {
                     gestorReservas.cancelarReservas();
                     break;
                 case "4":
+                    gestorReservas.modificarReserva();
+                    break;
+                case "5":
                     System.out.println("Saliendo...");
                     break;
                 default:

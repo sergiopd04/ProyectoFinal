@@ -148,7 +148,49 @@ public class GestorReservas {
 
     }
 
-    
+    public void modificarReserva() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el ID de la reserva a modificar: ");
+        String id = scanner.nextLine();
+
+        for (Reservas reservas : listadoReservas) {
+            if (reservas.getId_habitacion().equals(id)) {
+                System.out.println("Cliente encontrado. ¿Qué atributo desea modificar?");
+                System.out.println("1. ID Habitación");
+                System.out.println("2. Fecha Entrada");
+                System.out.println("3. Fecha Salida");
+                System.out.println("0. Cancelar");
+
+                String opcion = scanner.nextLine();
+
+                switch (opcion) {
+                    case "1":
+                        System.out.print("Ingrese el nuevo ID: ");
+                        String nuevoId = scanner.nextLine();
+                        reservas.setId_habitacion(nuevoId);
+                        break;
+                    case "2":
+                        System.out.print("Ingrese el nuevo apellido: ");
+                        String nuevoFechaEntrada = scanner.nextLine();
+                        LocalDate fechaEntrada = LocalDate.parse(nuevoFechaEntrada);
+                        reservas.setFecha_entrada(fechaEntrada);
+                        break;
+                    case "3":
+                        System.out.print("Ingrese el nuevo apellido: ");
+                        String nuevoFechaSalida = scanner.nextLine();
+                        LocalDate fechaSalida = LocalDate.parse(nuevoFechaSalida);
+                        reservas.setFecha_salida(fechaSalida);
+                        break;
+                    default:
+                        System.out.println("Opción inválida. No se realizaron modificaciones.");
+                        return;
+                }
+                System.out.println("Cliente modificado exitosamente.");
+                return;
+            }
+        }
+        System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
+    }
 
     public static void guardarReservas(String id_habitacion, LocalDate fecha_entrada, LocalDate fecha_salida) throws IOException {
 
