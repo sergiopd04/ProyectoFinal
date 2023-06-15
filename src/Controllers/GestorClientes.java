@@ -6,7 +6,6 @@ import Utils.Validaciones;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class GestorClientes {

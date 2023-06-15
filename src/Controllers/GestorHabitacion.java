@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Cliente;
 import Models.Habitacion;
+import Models.Reservas;
 import Utils.Validaciones;
 
 import java.io.FileReader;
@@ -98,13 +99,13 @@ public class GestorHabitacion {
         int max_personas = Integer.parseInt(maxPersonas);
 
         System.out.println("Bañera: ");
-        compbanera = sc.nextLine();
+        compbanera = sc.nextLine().toUpperCase();
         if (compbanera.equals("S")) {
             banera = true;
         } else banera = false;
 
         System.out.println("Ocupada: ");
-        compocupada = sc.nextLine();
+        compocupada = sc.nextLine().toUpperCase();
         if (compocupada.equals("S")) {
             ocupada = true;
         } else ocupada = false;
@@ -121,23 +122,17 @@ public class GestorHabitacion {
         System.out.println("Habitacion agregada correctamente. \n");
     }
 
-    public void buscarHabitacion() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el ID de la habitación: ");
-        String id = scanner.nextLine();
-
+    public void listarHabitacion() {
         for (Habitacion habitacion : listadoHabitaciones) {
-            if (habitacion.getId().equals(id)) {
-                System.out.println("ID: " + habitacion.getId());
-                System.out.println("Nombre: " + habitacion.getNombre());
-                System.out.println("Descripción: " + habitacion.getDescripcion());
-                System.out.println("Camas: " + habitacion.getNum_camas());
-                System.out.println("Máximo personas: " + habitacion.getMax_personas());
-                System.out.println("Precio: " + habitacion.getPrecio());
-                return;
-            }
+            System.out.println("**************************");
+            System.out.println("ID: "+ habitacion.getId());
+            System.out.println("Nombre: "+ habitacion.getNombre());
+            System.out.println("Descripción: "+ habitacion.getDescripcion());
+            System.out.println("Num Camas: "+ habitacion.getNum_camas());
+            System.out.println("Max Personas: "+ habitacion.getMax_personas());
+            System.out.println("Bañera: "+ habitacion.isBanera());
+            System.out.println("Ocupada: "+ habitacion.isOcupada());
+            System.out.println("Precio: "+ habitacion.getPrecio());
         }
-
-        System.out.println("No se encontró ningún cliente con el DNI proporcionado.");
     }
 }

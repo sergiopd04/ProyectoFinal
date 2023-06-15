@@ -87,7 +87,7 @@ public class GestorPrincipal {
                     gestorHabitacion.agregarHabitacion();
                     break;
                 case "2":
-                    gestorHabitacion.buscarHabitacion();
+                    gestorHabitacion.listarHabitacion();
                     break;
                 case "3":
                     System.out.println("Saliendo...");

@@ -543,7 +543,7 @@ public class Validaciones {
                 System.out.println("Pago realizado correctamente. Gracias por reservar.");
                 break;
             } else {
-                System.out.println("Opción no válida. Por favor, introduce 'S' para confirmar o 'N' para cancelar el pago.");
+                System.out.println("Opción no válida. Por favor, introduce 'S' para confirmar el pago.");
             }
         } while (true);
     }
