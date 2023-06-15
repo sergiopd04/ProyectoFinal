@@ -62,6 +62,12 @@ public class Reservas {
         this.fecha_salida=fecha_salida;
     }
 
+    public Reservas(String id_habitacion, LocalDate fecha_entrada, LocalDate fecha_salida) {
+        this.id_habitacion = id_habitacion;
+        this.fecha_entrada = fecha_entrada;
+        this.fecha_salida = fecha_salida;
+    }
+
     public Reservas() {
     }
 }

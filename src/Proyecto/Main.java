@@ -109,9 +109,6 @@ public class Main {
                         switch (hotelopcion) {
                             case "1":
                                 GestorReservas.mostrarHabitacionesDisponibles(listadoHabitaciones);
-                                int opcionElegida = GestorReservas.obtenerOpcionElegida();
-                                Pago.pagoATM();
-                                GestorReservas.imprimirFactura(listadoHabitaciones, opcionElegida);
                                 break;
                             case "2":
                                 sistemafaqs.mostarfaqs();
