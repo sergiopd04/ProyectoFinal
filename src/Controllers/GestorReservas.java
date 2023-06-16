@@ -97,21 +97,27 @@ public class GestorReservas {
 
 
         boolean coincide=false;
-        boolean nocoinciden=false;
+
 
         for (Reservas reserva : listadoReservas) {
+
+            LocalDate fechaEntradaReserva = reserva.getFecha_entrada();
+            LocalDate fechaSalidaReserva = reserva.getFecha_salida();
+            LocalDate fechaEntradaInput =fechaEntrada;
+            LocalDate fechaSalidaInput = fechaSalida;
+
             if (reserva.getId_habitacion().equals(habitacionElegida.getId()) &&
-                    reserva.getFecha_entrada().equals(fechaEntrada) &&
-                    reserva.getFecha_salida().equals(fechaSalida)) {
-                coincide=true;
-            }else {
-                nocoinciden=true;
+                    (fechaEntradaInput.isAfter(fechaEntradaReserva) &&
+                    fechaEntradaInput.isBefore(fechaSalidaReserva) || fechaSalidaInput.isAfter(fechaEntradaReserva) &&
+                    fechaSalidaInput.isBefore(fechaSalidaReserva) || fechaEntradaInput.isBefore(fechaEntradaReserva) && fechaSalidaInput.isAfter(fechaSalidaReserva) )) {
+                coincide = true;
+                break;
             }
         }
 
         if (coincide) System.out.println("La reserva ya existe");
 
-        if (nocoinciden){
+        if (!coincide){
             System.out.println("*********   FACTURA   *********");
             System.out.println("Habitación seleccionada:");
             System.out.println("Código: " + habitacionElegida.getId());
@@ -133,18 +139,21 @@ public class GestorReservas {
                         System.out.print("Ingrese un número de tarjeta: ");
                         numeroTarjeta = sc.nextLine();
                     } while (!Validaciones.Tarjeta(numeroTarjeta) || numeroTarjeta.isEmpty());
+                    System.out.println("Gracias por su reserva :)");
                     break;
                 case "2":
                     Validaciones.validarBizum();
                     break;
             }
+
+            try {
+                guardarReservas(id, fechaEntrada,fechaSalida);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        try {
-            guardarReservas(id, fechaEntrada,fechaSalida);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 
@@ -252,7 +261,9 @@ public class GestorReservas {
     }
 
     public void listarReservas(){
+        //Recorrer arrayList reservas
         for (Reservas reservas : listadoReservas) {
+            //Mostrar campos reservas
             System.out.println("**************************");
             System.out.println("Habitacion ID: "+ reservas.getId_habitacion());
             System.out.println("Fecha entrada: "+ reservas.getFecha_entrada());
@@ -262,12 +273,13 @@ public class GestorReservas {
 
     public void cancelarReservas() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el código de la habitación a eliminar: ");
+        System.out.print("Ingrese el código de la reserva a eliminar: ");
         String habitacion = scanner.nextLine();
 
         String archivo = "src/data/reservas.dat";
 
         try {
+            //Acceder al archivo
             RandomAccessFile raf = new RandomAccessFile(archivo, "rw");
 
             boolean encontrado = false;

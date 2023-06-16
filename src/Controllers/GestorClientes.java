@@ -88,39 +88,70 @@ public class GestorClientes {
 
         String dni, fecha, fraseControl;
 
-        System.out.println("Nombre: ");
-        String nombre = sc.nextLine();
-        Validaciones.validarNombre(nombre);
+        boolean bnombre = false;
+        boolean bapellido = false;
+        boolean bcorreo = false;
+        boolean btelefono = false;
+        boolean bdni = false;
+        boolean bfechanacimiento = false;
+        boolean bfrasecontrol = false;
+
+        String nombre = "";
+        String apellidos = "";
+        String email = "";
+        String tlf = "";
+        LocalDate fechaNacimiento = null;
+
+        do {
+            System.out.println("Nombre: ");
+            nombre = sc.nextLine();
+        } while (!Validaciones.validarNombre(nombre));
+        bnombre = true;
+
         System.out.println("Apellidos: ");
-        String apellidos = sc.nextLine().toUpperCase();
+        apellidos = sc.nextLine().toUpperCase();
         Validaciones.validarApellidos(apellidos);
+        bapellido = true;
+
         System.out.println("Correo: ");
-        String email = sc.nextLine();
+        email = sc.nextLine();
         Validaciones.validarCorreo(email);
+        bcorreo = true;
+
         System.out.println("Teléfono: ");
-        String tlf = sc.nextLine();
+        tlf = sc.nextLine();
         Validaciones.validarTelefono(tlf);
+        btelefono = true;
+
         do {
             System.out.print("Ingrese un número de DNI: ");
             dni = sc.nextLine();
         } while (!Validaciones.validarDNI(dni));
+        bdni = true;
+
         do {
             System.out.print("Ingresa tu fecha de nacimiento (dd/mm/yyyy): ");
             fecha = sc.nextLine();
         } while (!Validaciones.validarFecha(fecha));
-        LocalDate fechaNacimiento = Validaciones.convertirFecha(fecha);
+        fechaNacimiento = Validaciones.convertirFecha(fecha);
+        bfechanacimiento = true;
+
         if (Validaciones.calcularEdad(fechaNacimiento)) {
-            System.out.print("Frase de Control (4 palabras separadas por espacios): ");
-            fraseControl = sc.nextLine();
-            Validaciones.validarFrase(fraseControl);
+            do {
+                System.out.print("Frase de Control (4 palabras separadas por espacios): ");
+                fraseControl = sc.nextLine();
+            } while (!Validaciones.validarFrase(fraseControl));
+            bfrasecontrol = true;
         }
 
-        try {
-            guardarCliente(nombre, apellidos, false, email, dni, fechaNacimiento, Validaciones.getCodigoFinal());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (bnombre && bapellido && bcorreo && bdni && btelefono && bfechanacimiento && bfrasecontrol) {
+            try {
+                guardarCliente(nombre, apellidos, false, email, dni, fechaNacimiento, Validaciones.getCodigoFinal());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Cliente agregado correctamente.\n");
         }
-        System.out.println("Cliente agregado correctamente. \n");
     }
 
     public void buscarCliente() {
@@ -213,22 +244,29 @@ public class GestorClientes {
                     case "1":
                         System.out.print("Ingrese el nuevo nombre: ");
                         String nuevoNombre = scanner.nextLine();
+                        Validaciones.validarNombre(nuevoNombre);
                         cliente.setNombre(nuevoNombre);
                         break;
                     case "2":
                         System.out.print("Ingrese el nuevo apellido: ");
                         String nuevoApellido = scanner.nextLine();
+                        Validaciones.validarApellidos(nuevoApellido);
                         cliente.setApellidos(nuevoApellido);
                         break;
                     case "3":
                         System.out.print("Ingrese el nuevo email: ");
                         String nuevoEmail = scanner.nextLine();
+                        Validaciones.validarCorreo(nuevoEmail);
                         cliente.setEmail(nuevoEmail);
                         break;
                     case "4":
-                        System.out.print("Ingrese la nueva fecha de nacimiento: ");
-                        String nuevaFechaNacimiento = scanner.nextLine();
-                        cliente.setFecha_nacimiento(LocalDate.parse(nuevaFechaNacimiento));
+                        String fecha;
+                        do {
+                            System.out.print("Ingresa tu fecha de nacimiento (dd/mm/yyyy): ");
+                            fecha = scanner.nextLine();
+                        } while (!Validaciones.validarFecha(fecha));
+                        LocalDate fechaNacimiento = Validaciones.convertirFecha(fecha);
+                        cliente.setFecha_nacimiento(fechaNacimiento);
                         break;
                     case "5":
                         System.out.print("Ingrese el nuevo código de acceso: ");

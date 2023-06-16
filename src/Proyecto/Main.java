@@ -34,7 +34,7 @@ public class Main {
 
         GestorClientes gesCliente = new GestorClientes();
         gesCliente.cargarDatos();
-        GestorHabitacion gestorHabitacion = new GestorHabitacion();
+        GestorHabitacion gestorHabitacion = new GestorHabitacion(listadoHabitaciones);
         gestorHabitacion.cargarDatos();
         GestorReservas gestorReservas = new GestorReservas();
         gestorReservas.cargarDatos();

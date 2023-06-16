@@ -79,7 +79,9 @@ public class GestorPrincipal {
             System.out.println("------ MENÚ DE GESTIÓN DE CLIENTES ------");
             System.out.println("1. Agregar Habitación");
             System.out.println("2. Consultar Habitación");
-            System.out.println("3. Salir");
+            System.out.println("3. Modificar Habitación");
+            System.out.println("4. Eliminar Habitación");
+            System.out.println("5. Salir");
             System.out.print("Elija una opción: ");
             opcion = sc.nextLine();
             switch (opcion) {
@@ -90,6 +92,12 @@ public class GestorPrincipal {
                     gestorHabitacion.listarHabitacion();
                     break;
                 case "3":
+                    gestorHabitacion.modificarHabitacion();
+                    break;
+                case "4":
+                    gestorHabitacion.eliminarHabitacion();
+                    break;
+                case "5":
                     System.out.println("Saliendo...");
                     break;
                 default:
